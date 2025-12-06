@@ -82,7 +82,7 @@ export function GameBoard() {
   const totalPairs = cards.length / 2;
 
   // Calculate grid columns based on card count
-  const cardCount = cards.length;
+
 
 
   if (isPremiumLoading || !theme) {
@@ -250,12 +250,7 @@ export function GameBoard() {
         {/* Card Grid - Dynamic sizing */}
         <div className="flex-1 flex items-center justify-center mb-8">
           <div 
-            className={`
-              grid gap-3 sm:gap-4 md:gap-5 w-full mx-auto perspective-1000
-              ${cardCount <= 8 ? 'max-w-xl grid-cols-4' : 
-                cardCount <= 12 ? 'max-w-2xl grid-cols-4' : 
-                'max-w-3xl grid-cols-4'}
-            `}
+            className="grid grid-cols-4 gap-3 sm:gap-4 md:gap-5 w-full mx-auto perspective-1000 max-w-3xl"
           >
             {cards.map((card) => (
               <Card

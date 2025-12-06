@@ -43,21 +43,6 @@ Build me a complete MERN backend for my "Memory Card Game With Paywall Themes" R
 
 ### Theme Routes
 
-**GET /api/themes/list**
-- Returns list of all themes with lock status based on user's premium status:
-```javascript
-{
-  themes: [
-    { id: 'classic', name: 'Classic', isPremium: false, isLocked: false },
-    { id: 'animals', name: 'Animals', isPremium: true, isLocked: true }, // locked if user not premium
-    { id: 'food', name: 'Food', isPremium: true, isLocked: true },
-    { id: 'anime', name: 'Anime', isPremium: true, isLocked: true },
-    { id: 'logos', name: 'Logos', isPremium: true, isLocked: true }
-  ]
-}
-```
-
-**GET /api/themes/premium** (Protected + Premium Required)
 - Requires: user.isPremium === true
 - Returns premium themes if user is premium
 - Returns 403 if user is not premium

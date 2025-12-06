@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import type { Card, GameState } from '../types';
 import { createCardPairs } from '../utils/shuffle';
 
-const MATCH_DELAY = 800;
+const MATCH_DELAY = 500;
 
 export function useGameLogic(cardImages: string[], pairCount?: number) {
   const [gameState, setGameState] = useState<GameState>(() => initializeGame(cardImages, pairCount));
