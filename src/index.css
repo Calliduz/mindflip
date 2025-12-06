@@ -27,12 +27,23 @@ body {
 /* === TYPOGRAPHY === */
 .comic-title {
   font-family: 'Bangers', cursive;
-  letter-spacing: 4px;
-  text-shadow: 
-    4px 4px 0 #000,
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000;
+  letter-spacing: 2px;
+}
+
+/* Text Stroke Utility - Critical for Comic Style */
+.text-stroke-black {
+  -webkit-text-stroke: 2px black;
+  paint-order: stroke fill;
+}
+
+.text-stroke-thick {
+  -webkit-text-stroke: 4px black;
+  paint-order: stroke fill;
+}
+
+.text-stroke-white {
+  -webkit-text-stroke: 2px white;
+  paint-order: stroke fill;
 }
 
 .comic-subtitle {
@@ -72,12 +83,13 @@ body {
 /* === POW TEXT ON CARD FLIP === */
 .pow-text {
   font-family: 'Bangers', cursive;
-  font-size: 1.8rem;
+  font-size: 2.5rem;
   color: var(--comic-yellow);
-  text-shadow: 
-    2px 2px 0 var(--comic-red),
-    4px 4px 0 #000;
+  -webkit-text-stroke: 2px black;
+  text-shadow: 4px 4px 0 rgba(0,0,0,0.5);
   white-space: nowrap;
+  pointer-events: none;
+  z-index: 50;
 }
 
 @keyframes pow-animation {
@@ -94,13 +106,13 @@ body {
     opacity: 1; 
   }
   100% { 
-    transform: translate(-50%, -50%) scale(0.5) rotate(0deg) translateY(-30px); 
+    transform: translate(-50%, -50%) scale(0.5) rotate(0deg) translateY(-40px); 
     opacity: 0; 
   }
 }
 
 .animate-pow {
-  animation: pow-animation 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  animation: pow-animation 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 }
 
 /* === COMIC BUTTON === */
@@ -146,9 +158,9 @@ body {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  border-radius: 14px;
+  border-radius: 16px;
   border: 4px solid #000;
-  box-shadow: 5px 5px 0 #000;
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.4);
   overflow: hidden;
 }
 
@@ -167,11 +179,11 @@ body {
     repeating-linear-gradient(
       45deg,
       transparent,
-      transparent 8px,
-      rgba(255,255,255,0.05) 8px,
-      rgba(255,255,255,0.05) 16px
+      transparent 10px,
+      rgba(255,255,255,0.07) 10px,
+      rgba(255,255,255,0.07) 20px
     );
-  animation: pattern-move 20s linear infinite;
+  animation: pattern-move 30s linear infinite;
 }
 
 @keyframes pattern-move {

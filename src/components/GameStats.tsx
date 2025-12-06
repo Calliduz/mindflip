@@ -32,32 +32,32 @@ export function GameStats({ turns, formattedTime, matchedPairs, totalPairs }: Ga
   }, [matchedPairs, prevMatches]);
 
   return (
-    <div className="w-full max-w-4xl mx-auto mb-8">
-      <div className="grid grid-cols-3 gap-4 sm:gap-8">
+    <div className="w-full max-w-4xl mx-auto">
+      <div className="grid grid-cols-3 gap-4 sm:gap-8 px-2">
         
         {/* TIME */}
-        <div className="relative transform rotate-[-2deg] transition-transform hover:rotate-0 hover:scale-105 duration-300">
-          <div className="absolute inset-0 bg-blue-500 rounded-xl border-4 border-black shadow-[6px_6px_0_#000]"></div>
-          <div className="relative bg-gradient-to-br from-cyan-300 to-blue-400 p-3 sm:p-4 rounded-xl border-4 border-black -translate-y-1 -translate-x-1 flex flex-col items-center justify-center h-full">
-            <div className="bg-white/90 px-3 py-1 rounded-full border-2 border-black mb-1 shadow-sm">
-              <span className="font-black text-xs sm:text-sm tracking-wider uppercase text-black">TIME</span>
+        <div className="group relative transform rotate-[-2deg] transition-all hover:rotate-0 hover:scale-105 duration-300">
+          <div className="absolute inset-0 bg-blue-600 rounded-xl border-4 border-black shadow-[8px_8px_0_#000]"></div>
+          <div className="relative bg-gradient-to-br from-cyan-300 to-blue-400 p-2 rounded-xl border-4 border-black -translate-y-1 -translate-x-1 flex flex-col items-center justify-center h-full min-h-[100px]">
+            <div className="bg-white px-4 py-1 rounded-full border-3 border-black absolute -top-4 shadow-[3px_3px_0_rgba(0,0,0,0.2)]">
+              <span className="font-black text-xs sm:text-sm tracking-widest uppercase text-black">TIME</span>
             </div>
-            <span className="comic-title text-3xl sm:text-5xl text-white drop-shadow-[2px_2px_0_#000] tabular-nums leading-none mt-1">
+            <span className="comic-title text-4xl sm:text-5xl text-white text-stroke-black tabular-nums leading-none mt-3">
               {formattedTime}
             </span>
           </div>
         </div>
 
         {/* TURNS */}
-        <div className="relative transform rotate-[1deg] transition-transform hover:rotate-0 hover:scale-105 duration-300">
-          <div className="absolute inset-0 bg-purple-500 rounded-xl border-4 border-black shadow-[6px_6px_0_#000]"></div>
-          <div className="relative bg-gradient-to-br from-purple-300 to-pink-400 p-3 sm:p-4 rounded-xl border-4 border-black -translate-y-1 -translate-x-1 flex flex-col items-center justify-center h-full">
-             <div className="bg-white/90 px-3 py-1 rounded-full border-2 border-black mb-1 shadow-sm">
-              <span className="font-black text-xs sm:text-sm tracking-wider uppercase text-black">TURNS</span>
+        <div className="group relative transform rotate-[2deg] transition-all hover:rotate-0 hover:scale-105 duration-300">
+          <div className="absolute inset-0 bg-purple-600 rounded-xl border-4 border-black shadow-[8px_8px_0_#000]"></div>
+          <div className="relative bg-gradient-to-br from-purple-300 to-pink-400 p-2 rounded-xl border-4 border-black -translate-y-1 -translate-x-1 flex flex-col items-center justify-center h-full min-h-[100px]">
+             <div className="bg-white px-4 py-1 rounded-full border-3 border-black absolute -top-4 shadow-[3px_3px_0_rgba(0,0,0,0.2)]">
+              <span className="font-black text-xs sm:text-sm tracking-widest uppercase text-black">TURNS</span>
             </div>
             <span 
               className={`
-                comic-title text-3xl sm:text-5xl text-white drop-shadow-[2px_2px_0_#000] leading-none mt-1 transition-all duration-300
+                comic-title text-4xl sm:text-5xl text-white text-stroke-black leading-none mt-3 transition-transform duration-200
                 ${turnsChanged ? 'scale-125 text-yellow-300' : 'scale-100'}
               `}
             >
@@ -67,17 +67,17 @@ export function GameStats({ turns, formattedTime, matchedPairs, totalPairs }: Ga
         </div>
 
         {/* MATCHES */}
-        <div className="relative transform rotate-[-1deg] transition-transform hover:rotate-0 hover:scale-105 duration-300">
-          <div className="absolute inset-0 bg-green-500 rounded-xl border-4 border-black shadow-[6px_6px_0_#000]"></div>
-          <div className="relative bg-gradient-to-br from-green-300 to-emerald-400 p-3 sm:p-4 rounded-xl border-4 border-black -translate-y-1 -translate-x-1 flex flex-col items-center justify-center h-full">
-             <div className="bg-white/90 px-3 py-1 rounded-full border-2 border-black mb-1 shadow-sm">
-              <span className="font-black text-xs sm:text-sm tracking-wider uppercase text-black">MATCHES</span>
+        <div className="group relative transform rotate-[-1deg] transition-all hover:rotate-0 hover:scale-105 duration-300">
+          <div className="absolute inset-0 bg-green-600 rounded-xl border-4 border-black shadow-[8px_8px_0_#000]"></div>
+          <div className="relative bg-gradient-to-br from-green-300 to-emerald-400 p-2 rounded-xl border-4 border-black -translate-y-1 -translate-x-1 flex flex-col items-center justify-center h-full min-h-[100px]">
+             <div className="bg-white px-4 py-1 rounded-full border-3 border-black absolute -top-4 shadow-[3px_3px_0_rgba(0,0,0,0.2)]">
+              <span className="font-black text-xs sm:text-sm tracking-widest uppercase text-black">PAIRS</span>
             </div>
-            <div className={`flex items-baseline gap-1 mt-1 transition-all duration-300 ${matchesChanged ? 'scale-110' : 'scale-100'}`}>
-              <span className={`comic-title text-3xl sm:text-5xl drop-shadow-[2px_2px_0_#000] leading-none ${matchesChanged ? 'text-yellow-300' : 'text-white'}`}>
+            <div className={`flex items-baseline gap-1 mt-3 transition-transform duration-200 ${matchesChanged ? 'scale-110' : 'scale-100'}`}>
+              <span className={`comic-title text-4xl sm:text-5xl text-stroke-black leading-none ${matchesChanged ? 'text-yellow-300' : 'text-white'}`}>
                 {matchedPairs}
               </span>
-              <span className="comic-title text-xl sm:text-2xl text-white/80 drop-shadow-[1px_1px_0_#000]">
+              <span className="comic-title text-2xl sm:text-3xl text-white text-stroke-black opacity-80">
                 /{totalPairs}
               </span>
             </div>
