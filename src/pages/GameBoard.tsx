@@ -157,9 +157,9 @@ export function GameBoard() {
 
       <div className="w-full max-w-5xl mx-auto flex-1 flex flex-col">
         {/* Header Section */}
-        <div className="text-center mb-6 animate-fade-in relative z-10">
+        <div className="text-center mb-4 sm:mb-6 animate-fade-in relative z-10">
           <div className="inline-block relative mb-2">
-            <h1 className="comic-title text-5xl sm:text-6xl text-yellow-400 text-stroke-thick transform -rotate-2">
+            <h1 className="comic-title text-4xl sm:text-6xl text-yellow-400 text-stroke-thick transform -rotate-2">
               {theme.name.toUpperCase()}
             </h1>
             <span className="absolute -top-3 -right-8 text-4xl text-stroke-black text-cyan-400 animate-bounce-in" style={{ animationDelay: '0.5s' }}>⚡</span>
@@ -168,7 +168,7 @@ export function GameBoard() {
           {/* Difficulty Badge */}
           <div className="flex items-center justify-center gap-3 mt-2">
             <span className={`
-              inline-flex items-center gap-2 px-4 py-1.5 rounded-full border-3 border-black font-bold text-sm uppercase shadow-[3px_3px_0_#000]
+              inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border-3 border-black font-bold text-xs sm:text-sm uppercase shadow-[3px_3px_0_#000]
               ${difficulty === 'easy' ? 'bg-green-400 text-black' : 
                 difficulty === 'medium' ? 'bg-orange-400 text-black' : 
                 'bg-red-400 text-white'}
@@ -185,7 +185,7 @@ export function GameBoard() {
         </div>
 
         {/* Stats Section */}
-        <div className="mb-8">
+        <div className="mb-4 sm:mb-8">
           <GameStats
             turns={turns}
             formattedTime={formattedTime}
@@ -250,7 +250,7 @@ export function GameBoard() {
         {/* Card Grid - Dynamic sizing */}
         <div className="flex-1 flex items-center justify-center mb-8">
           <div 
-            className="grid grid-cols-4 gap-3 sm:gap-4 md:gap-5 w-full mx-auto perspective-1000 max-w-3xl"
+            className="grid grid-cols-4 gap-2 sm:gap-4 md:gap-5 w-full mx-auto perspective-1000 max-w-3xl"
           >
             {cards.map((card) => (
               <Card

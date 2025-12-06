@@ -27,7 +27,7 @@ export function Home() {
           </div>
 
           {/* Title */}
-          <h1 className="comic-title text-5xl sm:text-6xl md:text-7xl text-yellow-400 text-stroke-thick mb-4 animate-fade-in">
+          <h1 className="comic-title text-4xl sm:text-6xl md:text-7xl text-yellow-400 text-stroke-thick mb-4 animate-fade-in">
             MINDFLIP
           </h1>
 

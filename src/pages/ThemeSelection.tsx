@@ -33,7 +33,7 @@ export function ThemeSelection() {
         {/* Header */}
         <div className="text-center mb-10 animate-fade-in">
           <span className="action-word text-2xl mb-3 inline-block">ZAP!</span>
-          <h1 className="comic-title text-5xl sm:text-6xl text-yellow-400 text-stroke-thick mb-4">
+          <h1 className="comic-title text-4xl sm:text-6xl text-yellow-400 text-stroke-thick mb-4">
             PICK A THEME
           </h1>
           <p className="text-cyan-400 font-bold text-lg">
