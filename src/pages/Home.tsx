@@ -3,92 +3,101 @@ import { Button } from '../components/Button';
 
 export function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-violet-950 to-gray-900 flex flex-col">
+    <div className="min-h-screen bg-[#1a1a2e] flex flex-col speed-lines">
       {/* Hero Section */}
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-20">
-        {/* Animated Background Elements */}
+        {/* Starburst Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] starburst rounded-full" />
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-yellow-400/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-pink-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
         </div>
 
         {/* Content */}
         <div className="relative z-10 text-center max-w-4xl mx-auto animate-fade-in">
           {/* Logo */}
-          <div className="mb-8 inline-flex">
-            <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-2xl shadow-violet-500/40 animate-pulse-glow">
-              <span className="text-5xl">🧠</span>
+          <div className="mb-8 inline-flex animate-float">
+            <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-yellow-400 via-orange-500 to-pink-500 flex items-center justify-center border-4 border-black shadow-[8px_8px_0_#000] animate-pulse-glow">
+              <span className="text-6xl">🧠</span>
             </div>
           </div>
 
           {/* Title */}
-          <h1 className="text-5xl sm:text-7xl font-extrabold mb-6">
-            <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              MindFlip
-            </span>
+          <h1 className="comic-title text-6xl sm:text-8xl mb-6 text-yellow-400">
+            MINDFLIP!
           </h1>
 
+          {/* Action Word */}
+          <div className="mb-4">
+            <span className="action-word text-4xl">POW!</span>
+          </div>
+
           {/* Subtitle */}
-          <p className="text-xl sm:text-2xl text-gray-400 mb-4 font-light">
+          <p className="text-2xl sm:text-3xl text-cyan-400 mb-4 font-bold uppercase tracking-wider">
             The Ultimate Memory Card Game
           </p>
-          <p className="text-gray-500 mb-12 max-w-2xl mx-auto">
-            Challenge your memory with beautiful themed card sets. Match pairs, beat the clock,
-            and unlock premium themes for endless fun!
-          </p>
+          
+          {/* Speech Bubble */}
+          <div className="inline-block mb-12">
+            <div className="speech-bubble max-w-xl">
+              Challenge your memory with AWESOME themed card sets! Match pairs, beat the clock, and unlock PREMIUM themes! 💥
+            </div>
+          </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <Link to="/themes">
-              <Button size="lg" className="min-w-[200px]">
-                🎮 Start Playing
+              <Button size="lg" className="min-w-[220px]">
+                🎮 START PLAYING!
               </Button>
             </Link>
             <Link to="/themes">
-              <Button variant="outline" size="lg" className="min-w-[200px]">
-                🎨 Browse Themes
+              <Button variant="secondary" size="lg" className="min-w-[220px]">
+                🎨 BROWSE THEMES
               </Button>
             </Link>
           </div>
         </div>
 
         {/* Features */}
-        <div className="relative z-10 mt-20 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto px-4">
-          <div className="glass rounded-2xl p-6 text-center transform hover:scale-105 transition-all duration-300">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/30">
-              <span className="text-2xl">🎯</span>
+        <div className="relative z-10 mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto px-4">
+          <div className="comic-panel bg-gradient-to-br from-blue-600 to-cyan-500 p-6 text-center hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[12px_12px_0_#000] transition-all">
+            <div className="w-16 h-16 rounded-xl bg-white/20 flex items-center justify-center mx-auto mb-4 border-3 border-black">
+              <span className="text-3xl">🎯</span>
             </div>
-            <h3 className="text-lg font-semibold text-white mb-2">Match Pairs</h3>
-            <p className="text-sm text-gray-400">
-              Flip cards and find matching pairs to win
+            <h3 className="comic-title text-xl text-white mb-2">MATCH PAIRS!</h3>
+            <p className="text-sm text-white/80 font-bold">
+              Flip cards and find matching pairs to WIN!
             </p>
           </div>
 
-          <div className="glass rounded-2xl p-6 text-center transform hover:scale-105 transition-all duration-300">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-amber-500/30">
-              <span className="text-2xl">⏱️</span>
+          <div className="comic-panel bg-gradient-to-br from-orange-500 to-yellow-400 p-6 text-center hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[12px_12px_0_#000] transition-all">
+            <div className="w-16 h-16 rounded-xl bg-white/20 flex items-center justify-center mx-auto mb-4 border-3 border-black">
+              <span className="text-3xl">⏱️</span>
             </div>
-            <h3 className="text-lg font-semibold text-white mb-2">Beat the Clock</h3>
-            <p className="text-sm text-gray-400">
-              Track your time and improve your speed
+            <h3 className="comic-title text-xl text-black mb-2">BEAT THE CLOCK!</h3>
+            <p className="text-sm text-black/80 font-bold">
+              Track your time and improve your SPEED!
             </p>
           </div>
 
-          <div className="glass rounded-2xl p-6 text-center transform hover:scale-105 transition-all duration-300">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-violet-500/30">
-              <span className="text-2xl">⭐</span>
+          <div className="comic-panel bg-gradient-to-br from-purple-600 to-pink-500 p-6 text-center hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[12px_12px_0_#000] transition-all">
+            <div className="w-16 h-16 rounded-xl bg-white/20 flex items-center justify-center mx-auto mb-4 border-3 border-black">
+              <span className="text-3xl">⭐</span>
             </div>
-            <h3 className="text-lg font-semibold text-white mb-2">Premium Themes</h3>
-            <p className="text-sm text-gray-400">
-              Unlock beautiful themed card sets
+            <h3 className="comic-title text-xl text-white mb-2">PREMIUM THEMES!</h3>
+            <p className="text-sm text-white/80 font-bold">
+              Unlock AWESOME themed card sets!
             </p>
           </div>
         </div>
       </div>
 
       {/* Footer */}
-      <footer className="text-center py-6 text-gray-500 text-sm">
-        <p>© 2024 MindFlip. Train your brain, one flip at a time.</p>
+      <footer className="text-center py-6 border-t-4 border-black bg-black/30">
+        <p className="text-gray-400 font-bold uppercase tracking-wider">
+          © 2024 MindFlip • Train your brain, one flip at a time! 🧠💪
+        </p>
       </footer>
     </div>
   );

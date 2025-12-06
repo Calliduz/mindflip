@@ -17,43 +17,35 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseStyles = `
-    inline-flex items-center justify-center font-semibold rounded-xl
-    transition-all duration-300 ease-out
-    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900
-    disabled:opacity-50 disabled:cursor-not-allowed
-    transform hover:scale-105 active:scale-95
+    comic-btn inline-flex items-center justify-center font-bold rounded-xl
+    transition-all duration-150 uppercase tracking-wide
+    focus:outline-none
+    disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
   `;
 
   const variants = {
     primary: `
-      bg-gradient-to-r from-violet-600 to-purple-600
-      hover:from-violet-500 hover:to-purple-500
-      text-white shadow-lg shadow-violet-500/30
-      focus:ring-violet-500
+      bg-gradient-to-r from-yellow-400 to-orange-500
+      text-black
     `,
     secondary: `
-      bg-gradient-to-r from-gray-700 to-gray-600
-      hover:from-gray-600 hover:to-gray-500
-      text-white shadow-lg shadow-gray-700/30
-      focus:ring-gray-500
+      bg-gradient-to-r from-purple-500 to-blue-500
+      text-white
     `,
     outline: `
-      border-2 border-violet-500 text-violet-400
-      hover:bg-violet-500/10
-      focus:ring-violet-500
+      bg-transparent border-4 border-cyan-400 text-cyan-400
+      hover:bg-cyan-400 hover:text-black
     `,
     danger: `
-      bg-gradient-to-r from-red-600 to-rose-600
-      hover:from-red-500 hover:to-rose-500
-      text-white shadow-lg shadow-red-500/30
-      focus:ring-red-500
+      bg-gradient-to-r from-red-500 to-pink-500
+      text-white
     `,
   };
 
   const sizes = {
     sm: 'px-4 py-2 text-sm',
     md: 'px-6 py-3 text-base',
-    lg: 'px-8 py-4 text-lg',
+    lg: 'px-8 py-4 text-xl',
   };
 
   return (
@@ -63,9 +55,9 @@ export function Button({
       {...props}
     >
       {isLoading ? (
-        <>
+        <span className="flex items-center gap-2">
           <svg
-            className="animate-spin -ml-1 mr-2 h-4 w-4"
+            className="animate-spin h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -84,8 +76,8 @@ export function Button({
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
             />
           </svg>
-          Loading...
-        </>
+          LOADING...
+        </span>
       ) : (
         children
       )}

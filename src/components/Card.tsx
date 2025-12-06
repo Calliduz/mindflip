@@ -28,28 +28,32 @@ export function Card({ card, onClick, disabled }: CardProps) {
           ${card.isFlipped || card.isMatched ? 'flipped' : ''}
         `}
       >
-        {/* Card Back (Question Mark) */}
-        <div className="card-face card-back bg-gradient-to-br from-violet-600 to-purple-700 flex items-center justify-center shadow-xl shadow-violet-500/20 border-2 border-violet-400/30">
-          <div className="relative">
-            <span className="text-6xl font-bold text-white/90">?</span>
-            <div className="absolute inset-0 text-6xl font-bold text-violet-300 blur-sm">?</div>
+        {/* Card Back (Question Mark) - Comic Style */}
+        <div className="card-face card-back bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center halftone">
+          {/* Comic pattern overlay */}
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute inset-2 border-4 border-dashed border-white/50 rounded-lg" />
           </div>
-          {/* Decorative patterns */}
-          <div className="absolute inset-2 border border-violet-400/20 rounded-lg" />
-          <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-violet-400/40 rounded-tl-lg" />
-          <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-violet-400/40 rounded-tr-lg" />
-          <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-violet-400/40 rounded-bl-lg" />
-          <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-violet-400/40 rounded-br-lg" />
+          
+          {/* Question mark with comic style */}
+          <div className="relative">
+            <span className="comic-title text-6xl sm:text-7xl text-white drop-shadow-[4px_4px_0_#000]">?</span>
+          </div>
+          
+          {/* Corner decorations */}
+          <div className="absolute top-2 left-2 text-yellow-300 text-lg">★</div>
+          <div className="absolute top-2 right-2 text-cyan-300 text-lg">★</div>
+          <div className="absolute bottom-2 left-2 text-pink-300 text-lg">★</div>
+          <div className="absolute bottom-2 right-2 text-green-300 text-lg">★</div>
         </div>
 
         {/* Card Front (Image) */}
         <div
           className={`
-            card-face card-front bg-gray-800 flex items-center justify-center
-            shadow-xl border-2 overflow-hidden
+            card-face card-front bg-gray-800 flex items-center justify-center overflow-hidden
             ${card.isMatched 
-              ? 'border-emerald-400 shadow-emerald-500/30' 
-              : 'border-gray-600'
+              ? 'border-green-400 shadow-[6px_6px_0_#22c55e]' 
+              : 'border-black shadow-[6px_6px_0_#000]'
             }
           `}
         >
@@ -58,13 +62,13 @@ export function Card({ card, onClick, disabled }: CardProps) {
             alt="Card"
             className="w-full h-full object-cover"
             onError={(e) => {
-              // Fallback if image doesn't load
-              (e.target as HTMLImageElement).src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23374151" width="100" height="100"/><text x="50" y="55" text-anchor="middle" fill="%239CA3AF" font-size="40">🎴</text></svg>';
+              // Fallback with comic style emoji
+              (e.target as HTMLImageElement).src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23374151" width="100" height="100"/><text x="50" y="60" text-anchor="middle" fill="%23fbbf24" font-size="50">🎴</text></svg>';
             }}
           />
           {card.isMatched && (
-            <div className="absolute inset-0 bg-emerald-500/20 flex items-center justify-center">
-              <span className="text-4xl">✓</span>
+            <div className="absolute inset-0 bg-green-400/20 flex items-center justify-center">
+              <span className="comic-title text-5xl text-white drop-shadow-[3px_3px_0_#000]">✓</span>
             </div>
           )}
         </div>

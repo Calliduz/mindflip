@@ -10,76 +10,78 @@ export function ThemeSelection() {
 
   const handleThemeClick = (themeId: string, isPremiumTheme: boolean) => {
     if (isPremiumTheme && !isPremium) {
-      // Redirect to unlock page if trying to access premium theme without premium status
       navigate('/unlock');
     } else {
-      // Navigate to game with selected theme
       navigate(`/game/${themeId}`);
     }
   };
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-violet-950 to-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-[#1a1a2e] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-violet-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-400">Loading themes...</p>
+          <div className="w-20 h-20 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="comic-title text-2xl text-yellow-400">LOADING THEMES...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-violet-950 to-gray-900 pt-20 pb-12 px-4">
+    <div className="min-h-screen bg-[#1a1a2e] pt-20 pb-12 px-4 speed-lines">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12 animate-fade-in">
-          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4">
-            <span className="bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
-              Choose Your Theme
-            </span>
+          <span className="action-word text-3xl">ZAP!</span>
+          <h1 className="comic-title text-5xl sm:text-6xl text-yellow-400 mt-4 mb-4">
+            CHOOSE YOUR THEME!
           </h1>
-          <p className="text-gray-400 text-lg">
-            Select a card theme to start playing
+          <p className="text-cyan-400 font-bold text-lg uppercase tracking-wider">
+            Pick a card theme to start playing! 🎴
           </p>
 
           {!isPremium && (
-            <div className="mt-6 inline-flex items-center gap-3 glass rounded-2xl px-6 py-3">
-              <span className="text-gray-400">Want access to all themes?</span>
+            <div className="mt-6 inline-flex items-center gap-4 comic-panel bg-gradient-to-r from-purple-600 to-pink-500 px-6 py-3">
+              <span className="text-white font-bold">Want ALL themes?</span>
               <Button size="sm" onClick={() => navigate('/unlock')}>
-                ⭐ Unlock Premium
+                ⭐ UNLOCK PREMIUM!
               </Button>
             </div>
           )}
         </div>
 
         {/* Theme Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {themes.map((theme) => (
-            <ThemeCard
-              key={theme.id}
-              theme={theme}
-              isLocked={theme.isPremium && !isPremium}
-              onClick={() => handleThemeClick(theme.id, theme.isPremium)}
-            />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {themes.map((theme, index) => (
+            <div 
+              key={theme.id} 
+              className="animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <ThemeCard
+                theme={theme}
+                isLocked={theme.isPremium && !isPremium}
+                onClick={() => handleThemeClick(theme.id, theme.isPremium)}
+              />
+            </div>
           ))}
         </div>
 
-        {/* Premium Benefits (shown to non-premium users) */}
+        {/* Premium Benefits */}
         {!isPremium && (
-          <div className="mt-16 glass rounded-3xl p-8 text-center animate-fade-in">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 mb-6 shadow-lg shadow-amber-500/30">
-              <span className="text-3xl">👑</span>
+          <div className="mt-16 comic-panel bg-gradient-to-r from-yellow-500 via-orange-500 to-pink-500 p-8 text-center animate-fade-in">
+            <div className="action-word text-4xl mb-4 text-white">WOW!</div>
+            <div className="w-20 h-20 rounded-2xl bg-white/20 flex items-center justify-center mx-auto mb-6 border-4 border-black">
+              <span className="text-4xl">👑</span>
             </div>
-            <h2 className="text-2xl font-bold text-white mb-4">
-              Unlock All Premium Themes
+            <h2 className="comic-title text-3xl text-black mb-4">
+              UNLOCK ALL PREMIUM THEMES!
             </h2>
-            <p className="text-gray-400 mb-6 max-w-lg mx-auto">
-              Get access to Animals, Food, Anime, and Logos themes with a one-time purchase.
-              No subscriptions, just endless fun!
+            <p className="text-black font-bold mb-6 max-w-lg mx-auto text-lg">
+              Get Animals, Food, Anime, and Logos themes with ONE purchase! No subscriptions! 💪
             </p>
             <Button size="lg" onClick={() => navigate('/unlock')}>
-              🔓 Unlock All Themes
+              🔓 UNLOCK NOW!
             </Button>
           </div>
         )}
