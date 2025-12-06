@@ -81,10 +81,6 @@ export function GameBoard() {
   const matchedPairs = cards.filter((card) => card.isMatched).length / 2;
   const totalPairs = cards.length / 2;
 
-  // Calculate grid columns based on card count
-
-
-
   if (isPremiumLoading || !theme) {
     return (
       <div className="min-h-screen bg-[#0a0a12] flex items-center justify-center">
