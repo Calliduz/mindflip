@@ -86,7 +86,7 @@ export function Home() {
       {/* Footer */}
       <footer className="relative z-10 text-center py-6 border-t-4 border-black/40 bg-black/30">
         <p className="text-gray-500 font-medium">
-          © 2024 MindFlip • Train your brain, one flip at a time!
+          © 2025 Juztyne Clever Dalupang • Train your brain, one flip at a time!
         </p>
       </footer>
     </div>

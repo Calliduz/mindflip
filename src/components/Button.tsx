@@ -63,7 +63,12 @@ export function Button({
           Loading...
         </span>
       ) : (
-        children
+        <>
+          <div className="absolute inset-0 overflow-hidden rounded-xl pointer-events-none">
+            <div className="shine-effect" />
+          </div>
+          {children}
+        </>
       )}
     </button>
   );

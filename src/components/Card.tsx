@@ -15,8 +15,30 @@ export function Card({ card, onClick }: CardProps) {
   const [powWord, setPowWord] = useState('POW!');
   const [powPosition, setPowPosition] = useState({ x: 50, y: 50 });
 
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (card.isFlipped || card.isMatched) return;
+    
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    // Calculate tilt (limit to 12 degrees)
+    const rotateX = ((y - centerY) / centerY) * -12;
+    const rotateY = ((x - centerX) / centerX) * 12;
+
+    setTilt({ x: rotateX, y: rotateY });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ x: 0, y: 0 });
+  };
+
   const handleClick = () => {
-    // Show POW effect when flipping a card face-up
     if (!card.isFlipped && !card.isMatched) {
       setPowWord(powWords[Math.floor(Math.random() * powWords.length)]);
       setPowPosition({
@@ -27,10 +49,20 @@ export function Card({ card, onClick }: CardProps) {
       setTimeout(() => setShowPow(false), 500);
     }
     onClick(card);
+    setTilt({ x: 0, y: 0 });
   };
 
   return (
-    <div className="card-container w-full aspect-square cursor-pointer relative" onClick={handleClick}>
+    <div 
+      className="card-container w-full aspect-square cursor-pointer relative perspective-1000" 
+      onClick={handleClick}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale(${tilt.x !== 0 ? 1.05 : 1})`,
+        transition: 'transform 0.1s ease-out'
+      }}
+    >
       {/* POW Effect */}
       {showPow && (
         <div
@@ -53,6 +85,16 @@ export function Card({ card, onClick }: CardProps) {
           {/* Animated gradient background */}
           <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400" />
           
+          {/* Glare effect */}
+          <div 
+            className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none"
+            style={{ 
+              opacity: Math.abs(tilt.x) + Math.abs(tilt.y) > 0 ? 1 : 0,
+              transition: 'opacity 0.2s',
+              transform: `translate(${tilt.y * -2}px, ${tilt.x * -2}px)`
+            }} 
+          />
+          
           {/* Animated pattern overlay */}
           <div className="absolute inset-0 card-pattern" />
           
@@ -63,7 +105,7 @@ export function Card({ card, onClick }: CardProps) {
           <div className="absolute inset-2 border-2 border-dashed border-white/30 rounded-xl" />
           
           {/* MindFlip branding */}
-          <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-black/50 px-2 py-0.5 rounded-full">
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-black/50 px-2 py-0.5 rounded-full z-10">
             <span className="text-[8px] font-bold text-yellow-300 tracking-wider">🧠 MINDFLIP</span>
           </div>
           
