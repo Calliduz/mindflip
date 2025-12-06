@@ -2,13 +2,13 @@ import { useState, useCallback, useEffect } from 'react';
 import type { Card, GameState } from '../types';
 import { createCardPairs } from '../utils/shuffle';
 
-const MATCH_DELAY = 800; // Slightly faster
+const MATCH_DELAY = 800;
 
-export function useGameLogic(cardImages: string[]) {
-  const [gameState, setGameState] = useState<GameState>(() => initializeGame(cardImages));
+export function useGameLogic(cardImages: string[], pairCount?: number) {
+  const [gameState, setGameState] = useState<GameState>(() => initializeGame(cardImages, pairCount));
 
-  function initializeGame(images: string[]): GameState {
-    const cardPairs = createCardPairs(images);
+  function initializeGame(images: string[], pairs?: number): GameState {
+    const cardPairs = createCardPairs(images, pairs);
     const cards: Card[] = cardPairs.map((pair) => ({
       ...pair,
       isFlipped: false,
@@ -24,13 +24,13 @@ export function useGameLogic(cardImages: string[]) {
     };
   }
 
-  // Handle card click - NEW: allows unflipping and faster selection
+  // Handle card click - allows unflipping and faster selection
   const handleCardClick = useCallback((clickedCard: Card) => {
     setGameState((prev) => {
       // Don't allow clicking matched cards
       if (clickedCard.isMatched) return prev;
 
-      // NEW: If clicking an already flipped card, unflip it (deselect)
+      // If clicking an already flipped card, unflip it (deselect)
       if (clickedCard.isFlipped && prev.selectedCards.some(c => c.id === clickedCard.id)) {
         const updatedCards = prev.cards.map((card) =>
           card.id === clickedCard.id ? { ...card, isFlipped: false } : card
@@ -45,10 +45,8 @@ export function useGameLogic(cardImages: string[]) {
       // Don't flip already flipped or matched cards
       if (clickedCard.isFlipped || clickedCard.isMatched) return prev;
 
-      // NEW: If already have 2 cards selected and processing, allow starting a new selection
-      // This makes the game feel more responsive
+      // If already have 2 cards selected, allow starting a new selection
       if (prev.selectedCards.length >= 2) {
-        // Clear the previous mismatch immediately if clicking a new card
         const clearedCards = prev.cards.map((card) => {
           const wasSelected = prev.selectedCards.some(s => s.id === card.id);
           if (wasSelected && !card.isMatched) {
@@ -57,7 +55,6 @@ export function useGameLogic(cardImages: string[]) {
           return card;
         });
         
-        // Now flip the new card
         const updatedCards = clearedCards.map((card) =>
           card.id === clickedCard.id ? { ...card, isFlipped: true } : card
         );
@@ -77,7 +74,6 @@ export function useGameLogic(cardImages: string[]) {
 
       const newSelectedCards = [...prev.selectedCards, { ...clickedCard, isFlipped: true }];
 
-      // If this is the second card, start processing
       if (newSelectedCards.length === 2) {
         return {
           ...prev,
@@ -103,12 +99,10 @@ export function useGameLogic(cardImages: string[]) {
 
       const timer = setTimeout(() => {
         setGameState((prev) => {
-          // Check if cards are still selected (user might have clicked away)
           const firstStillFlipped = prev.cards.find(c => c.id === first.id)?.isFlipped;
           const secondStillFlipped = prev.cards.find(c => c.id === second.id)?.isFlipped;
           
           if (!firstStillFlipped || !secondStillFlipped) {
-            // User already clicked away, don't process
             return {
               ...prev,
               selectedCards: [],
@@ -119,12 +113,10 @@ export function useGameLogic(cardImages: string[]) {
           let updatedCards: Card[];
 
           if (isMatch) {
-            // Mark as matched
             updatedCards = prev.cards.map((card) =>
               card.imageUrl === first.imageUrl ? { ...card, isMatched: true, isFlipped: true } : card
             );
           } else {
-            // Flip back
             updatedCards = prev.cards.map((card) =>
               card.id === first.id || card.id === second.id
                 ? { ...card, isFlipped: false }
@@ -149,10 +141,10 @@ export function useGameLogic(cardImages: string[]) {
     }
   }, [gameState.selectedCards, gameState.isProcessing]);
 
-  // Reset game
-  const resetGame = useCallback(() => {
-    setGameState(initializeGame(cardImages));
-  }, [cardImages]);
+  // Reset game with optional new pair count
+  const resetGame = useCallback((newPairCount?: number) => {
+    setGameState(initializeGame(cardImages, newPairCount ?? pairCount));
+  }, [cardImages, pairCount]);
 
   return {
     cards: gameState.cards,
