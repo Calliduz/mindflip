@@ -18,31 +18,31 @@ export function ThemeSelection() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#0f0f1a] flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-yellow-400 font-medium">Loading themes...</p>
+      <div className="min-h-screen bg-gradient-to-br from-[#0a0a12] via-[#12121f] to-[#0a0a12] flex items-center justify-center">
+        <div className="text-center animate-fade-in">
+          <div className="w-20 h-20 border-8 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-6" />
+          <p className="comic-title text-3xl text-yellow-400 text-stroke-black">LOADING...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f0f1a] via-[#1a1a2e] to-[#0f0f1a] pt-24 pb-12 px-4 speed-lines">
+    <div className="min-h-screen bg-gradient-to-br from-[#0a0a12] via-[#12121f] to-[#0a0a12] pt-24 pb-12 px-4 speed-lines">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10 animate-fade-in">
-          <span className="action-word text-2xl mb-2 inline-block">ZAP!</span>
-          <h1 className="comic-title text-5xl sm:text-6xl text-yellow-400 mb-3">
+          <span className="action-word text-2xl mb-3 inline-block">ZAP!</span>
+          <h1 className="comic-title text-5xl sm:text-6xl text-yellow-400 text-stroke-thick mb-4">
             PICK A THEME
           </h1>
-          <p className="text-cyan-400 font-medium text-lg">
+          <p className="text-cyan-400 font-bold text-lg">
             Select a card theme to start your memory challenge!
           </p>
 
           {!isPremium && (
-            <div className="mt-6 inline-flex items-center gap-4 bg-gradient-to-r from-purple-600/80 to-pink-500/80 px-5 py-3 rounded-2xl border-3 border-black shadow-[5px_5px_0_#000]">
-              <span className="text-white font-bold text-sm">Want all themes?</span>
+            <div className="mt-6 inline-flex items-center gap-4 bg-gradient-to-r from-purple-600/80 to-pink-500/80 px-6 py-3 rounded-2xl border-4 border-black shadow-[6px_6px_0_#000]">
+              <span className="text-white font-bold">Want all themes?</span>
               <Button size="sm" onClick={() => navigate('/unlock')}>
                 ⭐ UNLOCK
               </Button>
@@ -75,7 +75,7 @@ export function ThemeSelection() {
                 <span className="text-4xl">👑</span>
                 <div className="text-left">
                   <h3 className="comic-subtitle text-xl text-black uppercase">Go Premium!</h3>
-                  <p className="text-black/80 font-medium text-sm">Unlock all 4 premium themes</p>
+                  <p className="text-black/80 font-medium">Unlock all 4 premium themes</p>
                 </div>
               </div>
               <Button size="lg" onClick={() => navigate('/unlock')}>

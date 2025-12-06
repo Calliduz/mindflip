@@ -12,12 +12,12 @@ export function Success() {
   }, [refetch]);
 
   return (
-    <div className="min-h-screen bg-[#1a1a2e] flex items-center justify-center px-4 speed-lines">
+    <div className="min-h-screen bg-gradient-to-br from-[#0a0a12] via-[#12121f] to-[#0a0a12] flex items-center justify-center px-4 speed-lines">
       <Confetti isActive={true} duration={5000} />
 
       <div className="relative z-10 text-center max-w-lg mx-auto animate-fade-in">
         {/* Action Word */}
-        <div className="action-word text-5xl mb-6">AWESOME!</div>
+        <div className="action-word text-4xl sm:text-5xl mb-6 text-stroke-black">AWESOME!</div>
 
         {/* Success Icon */}
         <div className="inline-flex items-center justify-center w-28 h-28 rounded-2xl bg-gradient-to-br from-green-400 to-emerald-500 mb-8 border-4 border-black shadow-[8px_8px_0_#000] animate-bounce-in">
@@ -25,31 +25,31 @@ export function Success() {
         </div>
 
         {/* Title */}
-        <h1 className="comic-title text-5xl sm:text-6xl text-green-400 mb-4">
+        <h1 className="comic-title text-5xl sm:text-6xl text-green-400 text-stroke-thick mb-4">
           SUCCESS!
         </h1>
 
         {/* Message */}
-        <p className="text-2xl text-cyan-400 font-bold mb-8">
+        <p className="text-xl sm:text-2xl text-cyan-400 font-bold mb-8">
           Welcome to MindFlip PREMIUM! 🎊
         </p>
 
-        <div className="comic-panel bg-gradient-to-r from-purple-600 to-pink-500 p-6 mb-8">
+        <div className="bg-gradient-to-r from-purple-600 to-pink-500 p-6 rounded-2xl border-4 border-black shadow-[8px_8px_0_#000] mb-8">
           <p className="text-white font-bold mb-4 text-lg">
             You now have access to ALL premium themes:
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            <span className="comic-panel bg-violet-400 px-4 py-2 text-black font-bold text-sm">
+            <span className="bg-violet-400 px-4 py-2 rounded-xl border-3 border-black shadow-[3px_3px_0_#000] text-black font-bold text-sm">
               🐾 ANIMALS
             </span>
-            <span className="comic-panel bg-orange-400 px-4 py-2 text-black font-bold text-sm">
+            <span className="bg-orange-400 px-4 py-2 rounded-xl border-3 border-black shadow-[3px_3px_0_#000] text-black font-bold text-sm">
               🍕 FOOD
             </span>
-            <span className="comic-panel bg-pink-400 px-4 py-2 text-black font-bold text-sm">
+            <span className="bg-pink-400 px-4 py-2 rounded-xl border-3 border-black shadow-[3px_3px_0_#000] text-black font-bold text-sm">
               🎌 ANIME
             </span>
-            <span className="comic-panel bg-blue-400 px-4 py-2 text-black font-bold text-sm">
-              🏢 LOGOS
+            <span className="bg-blue-400 px-4 py-2 rounded-xl border-3 border-black shadow-[3px_3px_0_#000] text-black font-bold text-sm">
+              💻 TECH
             </span>
           </div>
         </div>

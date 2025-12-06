@@ -30,8 +30,8 @@ export function ThemeCard({ theme, isLocked, onClick }: ThemeCardProps) {
         {/* Lock */}
         {isLocked && (
           <div className="absolute inset-0 lock-container flex items-center justify-center">
-            <div className="w-14 h-14 rounded-xl bg-gray-800 flex items-center justify-center border-3 border-black shadow-[4px_4px_0_#000]">
-              <svg className="w-7 h-7 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-16 h-16 rounded-2xl bg-gray-800 flex items-center justify-center border-4 border-black shadow-[4px_4px_0_#000]">
+              <svg className="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
@@ -39,24 +39,24 @@ export function ThemeCard({ theme, isLocked, onClick }: ThemeCardProps) {
         )}
 
         {/* Badge */}
-        <div className="absolute top-2.5 right-2.5">
+        <div className="absolute top-3 right-3">
           {theme.isPremium ? (
-            <span className="premium-badge px-2.5 py-1 rounded-lg text-[10px] text-black">⭐ PRO</span>
+            <span className="premium-badge px-3 py-1.5 rounded-xl text-xs text-black font-bold">⭐ PRO</span>
           ) : (
-            <span className="free-badge px-2.5 py-1 rounded-lg text-[10px] text-black">✓ FREE</span>
+            <span className="free-badge px-3 py-1.5 rounded-xl text-xs text-black font-bold">✓ FREE</span>
           )}
         </div>
       </div>
 
       {/* Content */}
-      <div className="absolute bottom-0 left-0 right-0 p-3">
-        <h3 className="comic-title text-xl text-white mb-0.5">{theme.name}</h3>
-        <p className="text-gray-300 text-xs font-medium mb-2 line-clamp-1">{theme.description}</p>
+      <div className="absolute bottom-0 left-0 right-0 p-4">
+        <h3 className="comic-title text-2xl text-white text-stroke-black mb-1">{theme.name}</h3>
+        <p className="text-gray-300 text-sm font-medium mb-3 line-clamp-1">{theme.description}</p>
         
         {/* Button */}
         <div className={`
-          py-2 rounded-xl text-center font-bold text-xs uppercase tracking-wide
-          border-3 border-black
+          py-2.5 rounded-xl text-center font-bold text-sm uppercase tracking-wide
+          border-4 border-black shadow-[4px_4px_0_#000]
           ${isLocked
             ? 'bg-gray-600 text-white'
             : 'bg-gradient-to-r from-green-400 to-emerald-500 text-black'
