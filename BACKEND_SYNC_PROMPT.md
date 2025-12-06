@@ -13,7 +13,7 @@ Build me a complete MERN backend for my "Memory Card Game With Paywall Themes" R
 - Express.js
 - MongoDB (Mongoose)
 - JWT Authentication
-- Stripe Payments
+- **PayMongo** Payments (Philippines payment gateway)
 
 ### User Model
 ```javascript
@@ -62,21 +62,21 @@ Build me a complete MERN backend for my "Memory Card Game With Paywall Themes" R
 - Returns premium themes if user is premium
 - Returns 403 if user is not premium
 
-### Payment Routes (Stripe)
+### Payment Routes (PayMongo)
 
 **POST /api/payment/checkout** (Protected)
-- Creates Stripe Checkout Session
+- Creates PayMongo Checkout Session
 - Product: "Unlock All Themes"
-- Price: Configurable (e.g., $4.99)
+- Price: Configurable (e.g., ₱249.00)
 - success_url: `http://localhost:5173/success`
 - cancel_url: `http://localhost:5173/cancel`
-- Returns: `{ url: <stripe_checkout_url> }`
+- Returns: `{ url: <paymongo_checkout_url> }`
 
 **POST /api/payment/webhook**
-- Stripe webhook endpoint (raw body required for signature verification)
-- Listens for `checkout.session.completed` event
+- PayMongo webhook endpoint
+- Listens for `checkout_session.payment.paid` event
 - On success: Sets `user.isPremium = true` in database
-- IMPORTANT: Use `express.raw({ type: 'application/json' })` middleware for this route only
+- Verify webhook signature using `Paymongo-Signature` header
 
 ### Middleware
 
@@ -93,7 +93,7 @@ Build me a complete MERN backend for my "Memory Card Game With Paywall Themes" R
 ```
 /server
   /config
-    stripe.js         # Stripe client initialization
+    paymongo.js       # PayMongo client initialization
   /controllers
     authController.js
     themeController.js
@@ -116,68 +116,105 @@ Build me a complete MERN backend for my "Memory Card Game With Paywall Themes" R
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/mindflip
 JWT_SECRET=your_jwt_secret_key_here
-STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
-STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
-STRIPE_PRICE_ID=price_your_stripe_price_id
+PAYMONGO_SECRET_KEY=sk_test_your_paymongo_secret_key
+PAYMONGO_WEBHOOK_SECRET=whsec_your_webhook_secret
+PAYMONGO_PRICE_AMOUNT=24900  # Amount in centavos (₱249.00)
 CLIENT_URL=http://localhost:5173
 ```
 
 ### Key Implementation Notes
 
-1. **Stripe Webhook Raw Body**: The webhook route MUST use raw body parser:
+1. **PayMongo API Base URL**: `https://api.paymongo.com/v1`
+
+2. **Creating Checkout Session**:
 ```javascript
-app.post('/api/payment/webhook', 
-  express.raw({ type: 'application/json' }), 
-  paymentController.handleWebhook
-);
+const axios = require('axios');
+
+const createCheckoutSession = async (userId, userEmail) => {
+  const response = await axios.post(
+    'https://api.paymongo.com/v1/checkout_sessions',
+    {
+      data: {
+        attributes: {
+          billing: { email: userEmail },
+          send_email_receipt: true,
+          show_description: true,
+          show_line_items: true,
+          description: 'Unlock All Premium Themes - MindFlip',
+          line_items: [{
+            currency: 'PHP',
+            amount: parseInt(process.env.PAYMONGO_PRICE_AMOUNT), // in centavos
+            name: 'Premium Themes Bundle',
+            quantity: 1,
+          }],
+          payment_method_types: ['gcash', 'grab_pay', 'paymaya', 'card'],
+          success_url: `${process.env.CLIENT_URL}/success`,
+          cancel_url: `${process.env.CLIENT_URL}/cancel`,
+          metadata: { userId: userId }
+        }
+      }
+    },
+    {
+      headers: {
+        'Authorization': `Basic ${Buffer.from(process.env.PAYMONGO_SECRET_KEY).toString('base64')}`,
+        'Content-Type': 'application/json',
+      }
+    }
+  );
+  
+  return response.data.data.attributes.checkout_url;
+};
 ```
 
-2. **CORS Configuration**: Enable CORS for frontend origin:
+3. **Webhook Handler**:
+```javascript
+const handleWebhook = async (req, res) => {
+  const signature = req.headers['paymongo-signature'];
+  // Verify signature (see PayMongo docs)
+  
+  const event = req.body.data;
+  
+  if (event.attributes.type === 'checkout_session.payment.paid') {
+    const checkoutSession = event.attributes.data;
+    const userId = checkoutSession.attributes.metadata.userId;
+    
+    await User.findByIdAndUpdate(userId, { isPremium: true });
+  }
+  
+  res.status(200).json({ received: true });
+};
+```
+
+4. **CORS Configuration**: Enable CORS for frontend origin:
 ```javascript
 app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 ```
 
-3. **Stripe Checkout Session**: Include customer_email from user:
-```javascript
-const session = await stripe.checkout.sessions.create({
-  payment_method_types: ['card'],
-  mode: 'payment',
-  customer_email: req.user.email,
-  line_items: [{
-    price: process.env.STRIPE_PRICE_ID,
-    quantity: 1,
-  }],
-  success_url: `${process.env.CLIENT_URL}/success`,
-  cancel_url: `${process.env.CLIENT_URL}/cancel`,
-  metadata: { userId: req.user._id.toString() }
-});
-```
-
-4. **Webhook User Lookup**: Use metadata to find user:
-```javascript
-const userId = session.metadata.userId;
-await User.findByIdAndUpdate(userId, { isPremium: true });
-```
+5. **PayMongo Payment Methods Available**:
+   - GCash
+   - GrabPay
+   - Maya (formerly PayMaya)
+   - Credit/Debit Cards
 
 ### Testing Webhooks Locally
 
-Use Stripe CLI to test webhooks:
+Use ngrok to expose your local server:
 
 ```bash
-# Install Stripe CLI (if not installed)
-# Windows: scoop install stripe
-# Mac: brew install stripe/stripe-cli/stripe
+# Install ngrok (if not installed)
+# Download from https://ngrok.com/download
 
-# Login to Stripe
-stripe login
+# Start your server
+npm run dev
 
-# Forward webhooks to local server
-stripe listen --forward-to localhost:5000/api/payment/webhook
+# In another terminal, expose port 5000
+ngrok http 5000
 
-# Copy the webhook signing secret (whsec_...) to your .env file
+# Copy the https URL (e.g., https://abc123.ngrok.io)
+# Add webhook endpoint in PayMongo Dashboard:
+# https://abc123.ngrok.io/api/payment/webhook
 
-# In another terminal, trigger a test event
-stripe trigger checkout.session.completed
+# Select events: checkout_session.payment.paid
 ```
 
 ### How to Run
@@ -190,14 +227,16 @@ npm install
 
 2. Create `.env` file from `.env.example`
 
-3. Start MongoDB (if running locally)
+3. Get PayMongo API keys from: https://dashboard.paymongo.com/developers
 
-4. Start the server:
+4. Start MongoDB (if running locally)
+
+5. Start the server:
 ```bash
 npm run dev
 ```
 
-5. Server runs on `http://localhost:5000`
+6. Server runs on `http://localhost:5000`
 
 ### Frontend Connection
 

@@ -107,8 +107,8 @@ export function UnlockPremium() {
           >
             🔓 Unlock All Themes
           </Button>
-          <p className="mt-4 text-sm text-gray-500">
-            Secure payment powered by Stripe
+          <p className="mt-4 text-sm text-gray-500">s
+            Secure payment powered by PayMongo
           </p>
         </div>
 
