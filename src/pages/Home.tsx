@@ -3,117 +3,90 @@ import { Button } from '../components/Button';
 
 export function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f0f1a] via-[#1a1a2e] to-[#0f0f1a] flex flex-col speed-lines overflow-hidden">
-      {/* Decorative Background Elements */}
+    <div className="min-h-screen bg-gradient-to-br from-[#0a0a12] via-[#12121f] to-[#0a0a12] flex flex-col speed-lines overflow-hidden">
+      {/* Background Effects */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {/* Starburst */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] starburst rounded-full opacity-50" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] starburst rounded-full opacity-40" />
         
-        {/* Floating decorative elements */}
-        <div className="absolute top-20 left-10 text-4xl animate-float opacity-60" style={{ animationDelay: '0s' }}>⭐</div>
-        <div className="absolute top-40 right-20 text-3xl animate-float opacity-50" style={{ animationDelay: '0.5s' }}>✨</div>
-        <div className="absolute bottom-40 left-20 text-5xl animate-float opacity-40" style={{ animationDelay: '1s' }}>🎴</div>
-        <div className="absolute bottom-20 right-10 text-4xl animate-float opacity-50" style={{ animationDelay: '1.5s' }}>💫</div>
-        <div className="absolute top-1/3 left-1/4 text-2xl animate-twinkle opacity-30">★</div>
-        <div className="absolute top-2/3 right-1/4 text-2xl animate-twinkle opacity-30" style={{ animationDelay: '1s' }}>★</div>
+        {/* Floating elements */}
+        <div className="absolute top-24 left-[10%] text-3xl animate-float opacity-40" style={{ animationDelay: '0s' }}>⭐</div>
+        <div className="absolute top-32 right-[15%] text-2xl animate-float opacity-30" style={{ animationDelay: '1s' }}>✨</div>
+        <div className="absolute bottom-32 left-[15%] text-4xl animate-float opacity-35" style={{ animationDelay: '2s' }}>🎴</div>
+        <div className="absolute bottom-24 right-[10%] text-3xl animate-float opacity-40" style={{ animationDelay: '3s' }}>💫</div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center px-4 py-24 relative z-10">
-        <div className="text-center max-w-3xl mx-auto">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 pt-20 pb-12 relative z-10">
+        <div className="text-center max-w-2xl mx-auto">
           
-          {/* Logo with Glow */}
-          <div className="mb-6 inline-block animate-float">
-            <div className="w-32 h-32 rounded-3xl bg-gradient-to-br from-yellow-400 via-orange-500 to-pink-500 flex items-center justify-center border-4 border-black shadow-[8px_8px_0_#000] animate-pulse-glow">
-              <span className="text-7xl">🧠</span>
+          {/* Logo */}
+          <div className="mb-5 inline-block animate-float">
+            <div className="w-28 h-28 rounded-3xl bg-gradient-to-br from-yellow-400 via-orange-500 to-pink-500 flex items-center justify-center border-4 border-black shadow-[8px_8px_0_#000] animate-pulse-glow">
+              <span className="text-6xl">🧠</span>
             </div>
           </div>
 
           {/* Title */}
-          <h1 className="comic-title text-7xl sm:text-8xl lg:text-9xl text-yellow-400 mb-4 animate-fade-in">
+          <h1 className="comic-title text-6xl sm:text-7xl lg:text-8xl text-yellow-400 mb-3 animate-fade-in">
             MINDFLIP
           </h1>
 
           {/* Action Word */}
-          <div className="mb-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          <div className="mb-4 animate-fade-in" style={{ animationDelay: '0.1s' }}>
             <span className="action-word">POW!</span>
           </div>
 
           {/* Speech Bubble */}
-          <div className="inline-block mb-10 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <div className="speech-bubble max-w-lg text-left">
-              <span className="font-bold text-purple-600">Challenge your memory</span> with awesome themed card sets! 
-              Match pairs, beat the clock, and unlock <span className="font-bold text-orange-500">PREMIUM themes!</span> 💥
+          <div className="inline-block mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <div className="speech-bubble max-w-md">
+              <strong className="text-purple-600">Challenge your memory</strong> with comic-style card matching! 
+              Beat the clock and unlock <strong className="text-orange-500">premium themes!</strong> 💥
             </div>
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <Link to="/themes">
-              <Button size="lg" className="min-w-[200px] text-lg">
+              <Button size="lg" className="min-w-[180px]">
                 🎮 PLAY NOW
               </Button>
             </Link>
-            <Link to="/themes">
-              <Button variant="secondary" size="lg" className="min-w-[200px] text-lg">
-                🎨 THEMES
+            <Link to="/unlock">
+              <Button variant="secondary" size="lg" className="min-w-[180px]">
+                ⭐ GO PRO
               </Button>
             </Link>
           </div>
         </div>
 
-        {/* Features Section */}
-        <div className="mt-20 w-full max-w-4xl mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            {/* Feature 1 */}
-            <div 
-              className="feature-card bg-gradient-to-br from-blue-500 to-cyan-400 p-6 text-center animate-fade-in"
-              style={{ animationDelay: '0.4s' }}
-            >
-              <div className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center mx-auto mb-4 border-3 border-black/30">
-                <span className="text-4xl">🎯</span>
-              </div>
-              <h3 className="comic-subtitle text-xl text-white mb-2 uppercase">Match Pairs</h3>
-              <p className="text-white/90 text-sm font-medium">
-                Flip cards and find matching pairs to win the game!
-              </p>
+        {/* Features */}
+        <div className="mt-16 w-full max-w-3xl mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="comic-panel bg-gradient-to-br from-blue-500 to-cyan-400 p-5 text-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
+              <span className="text-3xl block mb-2">🎯</span>
+              <h3 className="comic-subtitle text-lg text-white uppercase mb-1">Match Pairs</h3>
+              <p className="text-white/80 text-sm font-medium">Flip and find matching cards!</p>
             </div>
 
-            {/* Feature 2 */}
-            <div 
-              className="feature-card bg-gradient-to-br from-orange-500 to-yellow-400 p-6 text-center animate-fade-in"
-              style={{ animationDelay: '0.5s' }}
-            >
-              <div className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center mx-auto mb-4 border-3 border-black/30">
-                <span className="text-4xl">⏱️</span>
-              </div>
-              <h3 className="comic-subtitle text-xl text-black mb-2 uppercase">Beat the Clock</h3>
-              <p className="text-black/80 text-sm font-medium">
-                Track your time and improve your speed!
-              </p>
+            <div className="comic-panel bg-gradient-to-br from-orange-500 to-yellow-400 p-5 text-center animate-fade-in" style={{ animationDelay: '0.5s' }}>
+              <span className="text-3xl block mb-2">⏱️</span>
+              <h3 className="comic-subtitle text-lg text-black uppercase mb-1">Beat the Clock</h3>
+              <p className="text-black/70 text-sm font-medium">Track your time and speed!</p>
             </div>
 
-            {/* Feature 3 */}
-            <div 
-              className="feature-card bg-gradient-to-br from-purple-500 to-pink-500 p-6 text-center animate-fade-in"
-              style={{ animationDelay: '0.6s' }}
-            >
-              <div className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center mx-auto mb-4 border-3 border-black/30">
-                <span className="text-4xl">⭐</span>
-              </div>
-              <h3 className="comic-subtitle text-xl text-white mb-2 uppercase">Premium Themes</h3>
-              <p className="text-white/90 text-sm font-medium">
-                Unlock awesome themed card collections!
-              </p>
+            <div className="comic-panel bg-gradient-to-br from-purple-500 to-pink-500 p-5 text-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
+              <span className="text-3xl block mb-2">⭐</span>
+              <h3 className="comic-subtitle text-lg text-white uppercase mb-1">5 Themes</h3>
+              <p className="text-white/80 text-sm font-medium">Classic + 4 premium sets!</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Footer */}
-      <footer className="relative z-10 text-center py-6 border-t-4 border-black/50 bg-black/30">
-        <p className="text-gray-400 font-medium">
-          © 2024 MindFlip • Train your brain, one flip at a time! 🧠
+      <footer className="relative z-10 text-center py-5 border-t-4 border-black/40 bg-black/20">
+        <p className="text-gray-500 font-medium text-sm">
+          © 2024 MindFlip • Train your brain, one flip at a time!
         </p>
       </footer>
     </div>

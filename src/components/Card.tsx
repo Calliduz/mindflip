@@ -8,48 +8,45 @@ interface CardProps {
 
 export function Card({ card, onClick, disabled }: CardProps) {
   const handleClick = () => {
-    if (!disabled && !card.isFlipped && !card.isMatched) {
+    if (!disabled) {
       onClick(card);
     }
   };
 
   return (
     <div
-      className={`
-        card-container w-full aspect-square cursor-pointer
-        ${disabled || card.isFlipped || card.isMatched ? 'pointer-events-none' : ''}
-        ${card.isMatched ? 'animate-bounce-in' : ''}
-      `}
+      className="card-container w-full aspect-square cursor-pointer"
       onClick={handleClick}
     >
       <div
         className={`
           card-inner w-full h-full
           ${card.isFlipped || card.isMatched ? 'flipped' : ''}
+          ${card.isMatched ? 'matched' : ''}
         `}
       >
-        {/* Card Back */}
-        <div className="card-face card-back bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 flex items-center justify-center overflow-hidden halftone">
-          {/* Inner border */}
-          <div className="absolute inset-3 border-2 border-white/20 rounded-xl" />
+        {/* Card Back - Comic Style */}
+        <div className="card-face card-back bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 flex items-center justify-center overflow-hidden halftone">
+          {/* Decorative inner border */}
+          <div className="absolute inset-2.5 border-2 border-white/30 rounded-xl" />
           
           {/* Question mark */}
-          <span className="comic-title text-5xl sm:text-6xl text-white drop-shadow-[3px_3px_0_rgba(0,0,0,0.5)]">?</span>
+          <span className="comic-title text-5xl sm:text-6xl text-white select-none">?</span>
           
-          {/* Corner stars */}
-          <span className="absolute top-2 left-2 text-yellow-300 text-sm animate-twinkle">★</span>
-          <span className="absolute top-2 right-2 text-cyan-300 text-sm animate-twinkle" style={{ animationDelay: '0.5s' }}>★</span>
-          <span className="absolute bottom-2 left-2 text-pink-300 text-sm animate-twinkle" style={{ animationDelay: '1s' }}>★</span>
-          <span className="absolute bottom-2 right-2 text-green-300 text-sm animate-twinkle" style={{ animationDelay: '1.5s' }}>★</span>
+          {/* Corner decorations */}
+          <span className="absolute top-2 left-2 text-yellow-300 text-xs animate-twinkle opacity-80">★</span>
+          <span className="absolute top-2 right-2 text-cyan-300 text-xs animate-twinkle opacity-80" style={{ animationDelay: '0.7s' }}>★</span>
+          <span className="absolute bottom-2 left-2 text-pink-200 text-xs animate-twinkle opacity-80" style={{ animationDelay: '1.4s' }}>★</span>
+          <span className="absolute bottom-2 right-2 text-green-300 text-xs animate-twinkle opacity-80" style={{ animationDelay: '2.1s' }}>★</span>
         </div>
 
-        {/* Card Front */}
+        {/* Card Front - Shows Image */}
         <div
           className={`
-            card-face card-front bg-white flex items-center justify-center overflow-hidden
+            card-face card-front flex items-center justify-center
             ${card.isMatched 
-              ? 'border-green-500 shadow-[5px_5px_0_#22c55e]' 
-              : ''
+              ? 'border-green-400 shadow-[5px_5px_0_#22c55e] bg-green-50' 
+              : 'bg-white'
             }
           `}
         >
@@ -57,10 +54,14 @@ export function Card({ card, onClick, disabled }: CardProps) {
             src={card.imageUrl}
             alt="Card"
             className="w-full h-full object-cover"
+            draggable={false}
           />
+          
+          {/* Match indicator */}
           {card.isMatched && (
-            <div className="absolute inset-0 bg-green-400/25 flex items-center justify-center">
-              <span className="text-4xl drop-shadow-lg">✓</span>
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="absolute inset-0 bg-green-400/20" />
+              <span className="text-green-500 text-4xl font-bold drop-shadow-lg animate-bounce-in">✓</span>
             </div>
           )}
         </div>

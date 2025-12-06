@@ -1,87 +1,88 @@
 @import "tailwindcss";
 
-/* Import Comic Fonts from Google Fonts */
+/* Import Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka:wght@400;500;600;700&display=swap');
 
-/* Comic Style Custom Properties */
+/* Custom Properties */
 :root {
   --comic-yellow: #FFE135;
   --comic-red: #FF3366;
   --comic-blue: #00D4FF;
   --comic-green: #39FF14;
-  --comic-purple: #BF40BF;
+  --comic-purple: #8B5CF6;
   --comic-orange: #FF6B35;
-  --comic-pink: #FF69B4;
-  --comic-black: #0f0f1a;
-  --comic-dark: #1a1a2e;
-  --comic-white: #FFFEF2;
+  --comic-pink: #EC4899;
+  --comic-black: #0a0a12;
+  --comic-dark: #12121f;
 }
 
-/* Base Styles */
+/* Base */
 body {
   font-family: 'Fredoka', sans-serif;
   background-color: var(--comic-black);
   color: white;
+  overflow-x: hidden;
 }
 
-/* Comic Title - ONLY for big headers */
+/* === COMIC TITLES === */
 .comic-title {
   font-family: 'Bangers', cursive;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   text-shadow: 
     4px 4px 0 #000,
-    -2px -2px 0 #000,
-    2px -2px 0 #000,
-    -2px 2px 0 #000;
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000;
 }
 
-/* Comic Subtitle - for secondary headers */
 .comic-subtitle {
   font-family: 'Fredoka', sans-serif;
   font-weight: 600;
   letter-spacing: 1px;
 }
 
-/* Comic Panel - Clean version */
+/* === COMIC PANELS === */
 .comic-panel {
   border: 4px solid #000;
   border-radius: 20px;
   box-shadow: 8px 8px 0 #000;
   position: relative;
   overflow: hidden;
-  transition: all 0.2s ease;
 }
 
-.comic-panel:hover {
-  transform: translate(-3px, -3px);
-  box-shadow: 11px 11px 0 #000;
+/* === ACTION WORDS (POW, BOOM, etc) === */
+.action-word {
+  font-family: 'Bangers', cursive;
+  font-size: 2rem;
+  color: var(--comic-yellow);
+  text-shadow: 
+    3px 3px 0 var(--comic-red),
+    6px 6px 0 #000;
+  display: inline-block;
+  animation: action-pop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* Halftone Pattern - Subtle */
-.halftone::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
-  background-size: 6px 6px;
-  pointer-events: none;
+@keyframes action-pop {
+  0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+  50% { transform: scale(1.3) rotate(5deg); }
+  75% { transform: scale(0.9) rotate(-3deg); }
+  100% { transform: scale(1) rotate(-3deg); opacity: 1; }
 }
 
-/* Comic Button */
+/* === COMIC BUTTON === */
 .comic-btn {
   font-family: 'Fredoka', sans-serif;
   font-weight: 600;
-  letter-spacing: 0.5px;
   border: 4px solid #000;
-  box-shadow: 5px 5px 0 #000;
-  transition: all 0.15s ease;
   border-radius: 14px;
+  box-shadow: 5px 5px 0 #000;
+  transition: all 0.1s ease;
+  cursor: pointer;
 }
 
 .comic-btn:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0 #000;
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0 #000;
 }
 
 .comic-btn:active {
@@ -89,49 +90,9 @@ body {
   box-shadow: 3px 3px 0 #000;
 }
 
-/* Action Words - POW, BOOM, etc */
-.action-word {
-  font-family: 'Bangers', cursive;
-  font-size: 2.5rem;
-  color: var(--comic-yellow);
-  text-shadow: 
-    3px 3px 0 var(--comic-red),
-    6px 6px 0 #000;
-  transform: rotate(-3deg);
-  display: inline-block;
-  animation: action-pop 0.5s ease-out;
-}
-
-@keyframes action-pop {
-  0% { transform: scale(0) rotate(-10deg); }
-  60% { transform: scale(1.2) rotate(3deg); }
-  100% { transform: scale(1) rotate(-3deg); }
-}
-
-/* Speed Lines Background */
-.speed-lines {
-  background: 
-    linear-gradient(135deg, var(--comic-black) 0%, var(--comic-dark) 100%);
-}
-
-.speed-lines::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: 
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 30px,
-      rgba(255, 255, 255, 0.02) 30px,
-      rgba(255, 255, 255, 0.02) 60px
-    );
-  pointer-events: none;
-}
-
-/* Card Styles */
+/* === CARD ANIMATIONS === */
 .card-container {
-  perspective: 1000px;
+  perspective: 1200px;
 }
 
 .card-inner {
@@ -139,7 +100,7 @@ body {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .card-inner.flipped {
@@ -151,177 +112,248 @@ body {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  border-radius: 16px;
+  border-radius: 14px;
   border: 4px solid #000;
   box-shadow: 5px 5px 0 #000;
+  overflow: hidden;
 }
 
 .card-front {
   transform: rotateY(180deg);
+  background: white;
 }
 
 .card-back {
   transform: rotateY(0deg);
 }
 
-/* Speech Bubble - Improved */
+/* Card hover wobble */
+.card-container:hover .card-inner:not(.flipped) {
+  animation: card-wobble 0.4s ease;
+}
+
+@keyframes card-wobble {
+  0%, 100% { transform: rotateY(0) rotateZ(0); }
+  25% { transform: rotateY(-5deg) rotateZ(-2deg); }
+  75% { transform: rotateY(5deg) rotateZ(2deg); }
+}
+
+/* Card match celebration */
+@keyframes card-matched {
+  0% { transform: rotateY(180deg) scale(1); }
+  25% { transform: rotateY(180deg) scale(1.15); }
+  50% { transform: rotateY(180deg) scale(0.95); }
+  75% { transform: rotateY(180deg) scale(1.05); }
+  100% { transform: rotateY(180deg) scale(1); }
+}
+
+.card-inner.matched {
+  animation: card-matched 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* === SPEECH BUBBLE === */
 .speech-bubble {
   position: relative;
-  background: var(--comic-white);
+  background: #FFFEF2;
   border: 4px solid #000;
   border-radius: 24px;
   padding: 1.25rem 1.75rem;
   color: #000;
-  font-weight: 600;
+  font-weight: 500;
   box-shadow: 6px 6px 0 #000;
   font-size: 1.1rem;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .speech-bubble::after {
   content: '';
   position: absolute;
-  bottom: -20px;
-  left: 40px;
-  border-width: 20px 20px 0;
-  border-style: solid;
-  border-color: #000 transparent transparent;
+  bottom: -22px;
+  left: 45px;
+  border: 12px solid transparent;
+  border-top: 12px solid #000;
 }
 
 .speech-bubble::before {
   content: '';
   position: absolute;
-  bottom: -12px;
-  left: 44px;
-  border-width: 16px 16px 0;
-  border-style: solid;
-  border-color: var(--comic-white) transparent transparent;
+  bottom: -14px;
+  left: 48px;
+  border: 9px solid transparent;
+  border-top: 9px solid #FFFEF2;
   z-index: 1;
 }
 
-/* Confetti */
-@keyframes confetti-fall {
-  0% {
-    transform: translateY(-100vh) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) rotate(720deg);
-    opacity: 0;
-  }
-}
+/* === ANIMATIONS === */
 
-.confetti-piece {
-  position: fixed;
-  top: -20px;
-  animation: confetti-fall 3s ease-out forwards;
-}
-
-/* Bounce Animation */
+/* Bounce In */
 @keyframes bounce-in {
-  0% { transform: scale(0) rotate(-5deg); opacity: 0; }
-  50% { transform: scale(1.15) rotate(2deg); }
-  70% { transform: scale(0.95) rotate(-1deg); }
-  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+  40% { transform: scale(1.2) rotate(3deg); }
+  60% { transform: scale(0.9) rotate(-2deg); }
+  80% { transform: scale(1.05) rotate(1deg); }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
 }
 
 .animate-bounce-in {
-  animation: bounce-in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* Shake Animation */
+/* Shake */
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-6px) rotate(-2deg); }
-  40% { transform: translateX(6px) rotate(2deg); }
-  60% { transform: translateX(-4px) rotate(-1deg); }
-  80% { transform: translateX(4px) rotate(1deg); }
+  0%, 100% { transform: translateX(0) rotate(0); }
+  10% { transform: translateX(-8px) rotate(-3deg); }
+  30% { transform: translateX(8px) rotate(3deg); }
+  50% { transform: translateX(-6px) rotate(-2deg); }
+  70% { transform: translateX(6px) rotate(2deg); }
+  90% { transform: translateX(-3px) rotate(-1deg); }
 }
 
 .animate-shake {
-  animation: shake 0.5s ease-in-out;
+  animation: shake 0.6s ease-in-out;
 }
 
-/* Fade In Animation */
+/* Fade In Up */
 @keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .animate-fade-in {
-  animation: fade-in 0.4s ease-out;
+  animation: fade-in 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Float Animation */
+/* Float */
 @keyframes float {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-12px) rotate(2deg); }
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-15px) rotate(1deg); }
 }
 
 .animate-float {
-  animation: float 3s ease-in-out infinite;
+  animation: float 4s ease-in-out infinite;
 }
 
 /* Pulse Glow */
 @keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 5px 5px 0 #000, 0 0 20px rgba(255, 225, 53, 0.4);
-  }
-  50% {
-    box-shadow: 5px 5px 0 #000, 0 0 35px rgba(255, 225, 53, 0.7);
-  }
+  0%, 100% { box-shadow: 5px 5px 0 #000, 0 0 25px rgba(255, 225, 53, 0.4); }
+  50% { box-shadow: 5px 5px 0 #000, 0 0 45px rgba(255, 225, 53, 0.8); }
 }
 
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
-/* Spin Animation for Stars */
-@keyframes star-twinkle {
-  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
-  50% { transform: scale(1.3) rotate(180deg); opacity: 0.7; }
+/* Twinkle for stars */
+@keyframes twinkle {
+  0%, 100% { transform: scale(1) rotate(0); opacity: 0.7; }
+  50% { transform: scale(1.4) rotate(180deg); opacity: 1; }
 }
 
 .animate-twinkle {
-  animation: star-twinkle 2s ease-in-out infinite;
+  animation: twinkle 3s ease-in-out infinite;
 }
 
-/* Glass Effect - Subtle */
-.glass {
-  background: rgba(26, 26, 46, 0.9);
-  backdrop-filter: blur(12px);
-  border: 3px solid rgba(255, 255, 255, 0.15);
+/* Spin */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-/* Starburst Background */
-.starburst {
-  background: 
-    conic-gradient(
-      from 0deg,
-      rgba(139, 92, 246, 0.15) 0deg 30deg,
-      rgba(0, 212, 255, 0.1) 30deg 60deg,
-      rgba(139, 92, 246, 0.15) 60deg 90deg,
-      rgba(0, 212, 255, 0.1) 90deg 120deg,
-      rgba(139, 92, 246, 0.15) 120deg 150deg,
-      rgba(0, 212, 255, 0.1) 150deg 180deg,
-      rgba(139, 92, 246, 0.15) 180deg 210deg,
-      rgba(0, 212, 255, 0.1) 210deg 240deg,
-      rgba(139, 92, 246, 0.15) 240deg 270deg,
-      rgba(0, 212, 255, 0.1) 270deg 300deg,
-      rgba(139, 92, 246, 0.15) 300deg 330deg,
-      rgba(0, 212, 255, 0.1) 330deg 360deg
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* === CONFETTI === */
+@keyframes confetti-fall {
+  0% { transform: translateY(-100vh) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg) scale(0.5); opacity: 0; }
+}
+
+.confetti-piece {
+  position: fixed;
+  top: -20px;
+  animation: confetti-fall 3.5s ease-out forwards;
+}
+
+/* === BACKGROUND === */
+.speed-lines {
+  background: linear-gradient(180deg, var(--comic-black) 0%, var(--comic-dark) 100%);
+  position: relative;
+}
+
+.speed-lines::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 40px,
+      rgba(139, 92, 246, 0.03) 40px,
+      rgba(139, 92, 246, 0.03) 80px
     );
+  pointer-events: none;
 }
 
-/* Custom Scrollbar */
+.starburst {
+  background: conic-gradient(
+    from 0deg,
+    rgba(139, 92, 246, 0.12) 0deg 30deg,
+    rgba(236, 72, 153, 0.08) 30deg 60deg,
+    rgba(139, 92, 246, 0.12) 60deg 90deg,
+    rgba(236, 72, 153, 0.08) 90deg 120deg,
+    rgba(139, 92, 246, 0.12) 120deg 150deg,
+    rgba(236, 72, 153, 0.08) 150deg 180deg,
+    rgba(139, 92, 246, 0.12) 180deg 210deg,
+    rgba(236, 72, 153, 0.08) 210deg 240deg,
+    rgba(139, 92, 246, 0.12) 240deg 270deg,
+    rgba(236, 72, 153, 0.08) 270deg 300deg,
+    rgba(139, 92, 246, 0.12) 300deg 330deg,
+    rgba(236, 72, 153, 0.08) 330deg 360deg
+  );
+  animation: spin-slow 60s linear infinite;
+}
+
+/* === BADGES === */
+.premium-badge {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  border: 3px solid #000;
+  box-shadow: 3px 3px 0 #000;
+  transform: rotate(2deg);
+}
+
+.free-badge {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  background: linear-gradient(135deg, #39FF14, #22C55E);
+  border: 3px solid #000;
+  box-shadow: 3px 3px 0 #000;
+  transform: rotate(-2deg);
+}
+
+/* === STATS === */
+.stats-card {
+  border: 4px solid #000;
+  border-radius: 16px;
+  box-shadow: 5px 5px 0 #000;
+}
+
+/* === THEME CARDS === */
+.theme-card {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-card:hover {
+  transform: translate(-5px, -5px) rotate(-1deg);
+  box-shadow: 13px 13px 0 #000 !important;
+}
+
+/* === SCROLLBAR === */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
@@ -329,63 +361,23 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--comic-purple), var(--comic-blue));
+  background: linear-gradient(180deg, var(--comic-purple), var(--comic-pink));
   border: 2px solid #000;
+  border-radius: 0;
 }
 
-/* Theme Card Hover */
-.theme-card {
-  transition: all 0.2s ease;
+/* === HALFTONE OVERLAY === */
+.halftone::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.12) 1px, transparent 1px);
+  background-size: 5px 5px;
+  pointer-events: none;
 }
 
-.theme-card:hover {
-  transform: translate(-4px, -4px) rotate(-1deg);
-  box-shadow: 12px 12px 0 #000 !important;
-}
-
-/* Badges */
-.premium-badge {
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 700;
-  background: linear-gradient(135deg, #FFD700, #FFA500);
-  border: 3px solid #000;
-  box-shadow: 3px 3px 0 #000;
-  transform: rotate(3deg);
-}
-
-.free-badge {
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 700;
-  background: linear-gradient(135deg, #39FF14, #00cc66);
-  border: 3px solid #000;
-  box-shadow: 3px 3px 0 #000;
-  transform: rotate(-2deg);
-}
-
-/* Stats Card */
-.stats-card {
-  border: 4px solid #000;
-  border-radius: 16px;
-  box-shadow: 5px 5px 0 #000;
-  padding: 1rem 1.25rem;
-}
-
-/* Feature Card with Icon */
-.feature-card {
-  border: 4px solid #000;
-  border-radius: 20px;
-  box-shadow: 6px 6px 0 #000;
-  transition: all 0.2s ease;
-  overflow: hidden;
-}
-
-.feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 6px 11px 0 #000;
-}
-
-/* Lock Icon Container */
+/* === LOCK OVERLAY === */
 .lock-container {
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(3px);
 }
