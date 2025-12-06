@@ -24,7 +24,7 @@ body {
   overflow-x: hidden;
 }
 
-/* === COMIC TITLES === */
+/* === TYPOGRAPHY === */
 .comic-title {
   font-family: 'Bangers', cursive;
   letter-spacing: 4px;
@@ -50,7 +50,7 @@ body {
   overflow: hidden;
 }
 
-/* === ACTION WORDS (POW, BOOM, etc) === */
+/* === ACTION WORDS === */
 .action-word {
   font-family: 'Bangers', cursive;
   font-size: 2rem;
@@ -67,6 +67,40 @@ body {
   50% { transform: scale(1.3) rotate(5deg); }
   75% { transform: scale(0.9) rotate(-3deg); }
   100% { transform: scale(1) rotate(-3deg); opacity: 1; }
+}
+
+/* === POW TEXT ON CARD FLIP === */
+.pow-text {
+  font-family: 'Bangers', cursive;
+  font-size: 1.8rem;
+  color: var(--comic-yellow);
+  text-shadow: 
+    2px 2px 0 var(--comic-red),
+    4px 4px 0 #000;
+  white-space: nowrap;
+}
+
+@keyframes pow-animation {
+  0% { 
+    transform: translate(-50%, -50%) scale(0) rotate(-20deg); 
+    opacity: 0; 
+  }
+  30% { 
+    transform: translate(-50%, -50%) scale(1.5) rotate(10deg); 
+    opacity: 1; 
+  }
+  60% { 
+    transform: translate(-50%, -50%) scale(1.2) rotate(-5deg); 
+    opacity: 1; 
+  }
+  100% { 
+    transform: translate(-50%, -50%) scale(0.5) rotate(0deg) translateY(-30px); 
+    opacity: 0; 
+  }
+}
+
+.animate-pow {
+  animation: pow-animation 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 }
 
 /* === COMIC BUTTON === */
@@ -90,7 +124,7 @@ body {
   box-shadow: 3px 3px 0 #000;
 }
 
-/* === CARD ANIMATIONS === */
+/* === CARD CONTAINER === */
 .card-container {
   perspective: 1200px;
 }
@@ -100,7 +134,7 @@ body {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .card-inner.flipped {
@@ -127,28 +161,57 @@ body {
   transform: rotateY(0deg);
 }
 
-/* Card hover wobble */
+/* Animated pattern for card back */
+.card-pattern {
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 8px,
+      rgba(255,255,255,0.05) 8px,
+      rgba(255,255,255,0.05) 16px
+    );
+  animation: pattern-move 20s linear infinite;
+}
+
+@keyframes pattern-move {
+  from { background-position: 0 0; }
+  to { background-position: 100px 100px; }
+}
+
+/* Card hover effects */
 .card-container:hover .card-inner:not(.flipped) {
   animation: card-wobble 0.4s ease;
 }
 
 @keyframes card-wobble {
   0%, 100% { transform: rotateY(0) rotateZ(0); }
-  25% { transform: rotateY(-5deg) rotateZ(-2deg); }
-  75% { transform: rotateY(5deg) rotateZ(2deg); }
+  25% { transform: rotateY(-8deg) rotateZ(-2deg); }
+  75% { transform: rotateY(8deg) rotateZ(2deg); }
 }
 
 /* Card match celebration */
 @keyframes card-matched {
   0% { transform: rotateY(180deg) scale(1); }
-  25% { transform: rotateY(180deg) scale(1.15); }
-  50% { transform: rotateY(180deg) scale(0.95); }
-  75% { transform: rotateY(180deg) scale(1.05); }
-  100% { transform: rotateY(180deg) scale(1); }
+  20% { transform: rotateY(180deg) scale(1.15) rotate(3deg); }
+  40% { transform: rotateY(180deg) scale(0.95) rotate(-3deg); }
+  60% { transform: rotateY(180deg) scale(1.08) rotate(2deg); }
+  80% { transform: rotateY(180deg) scale(0.98) rotate(-1deg); }
+  100% { transform: rotateY(180deg) scale(1) rotate(0); }
 }
 
 .card-inner.matched {
-  animation: card-matched 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation: card-matched 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Subtle pulse for question mark */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.05); }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
 }
 
 /* === SPEECH BUBBLE === */
@@ -186,7 +249,6 @@ body {
 
 /* === ANIMATIONS === */
 
-/* Bounce In */
 @keyframes bounce-in {
   0% { transform: scale(0) rotate(-10deg); opacity: 0; }
   40% { transform: scale(1.2) rotate(3deg); }
@@ -199,7 +261,6 @@ body {
   animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* Shake */
 @keyframes shake {
   0%, 100% { transform: translateX(0) rotate(0); }
   10% { transform: translateX(-8px) rotate(-3deg); }
@@ -213,7 +274,6 @@ body {
   animation: shake 0.6s ease-in-out;
 }
 
-/* Fade In Up */
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(30px) scale(0.95); }
   to { opacity: 1; transform: translateY(0) scale(1); }
@@ -223,7 +283,6 @@ body {
   animation: fade-in 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Float */
 @keyframes float {
   0%, 100% { transform: translateY(0) rotate(-1deg); }
   50% { transform: translateY(-15px) rotate(1deg); }
@@ -233,7 +292,6 @@ body {
   animation: float 4s ease-in-out infinite;
 }
 
-/* Pulse Glow */
 @keyframes pulse-glow {
   0%, 100% { box-shadow: 5px 5px 0 #000, 0 0 25px rgba(255, 225, 53, 0.4); }
   50% { box-shadow: 5px 5px 0 #000, 0 0 45px rgba(255, 225, 53, 0.8); }
@@ -243,7 +301,6 @@ body {
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
-/* Twinkle for stars */
 @keyframes twinkle {
   0%, 100% { transform: scale(1) rotate(0); opacity: 0.7; }
   50% { transform: scale(1.4) rotate(180deg); opacity: 1; }
@@ -253,14 +310,13 @@ body {
   animation: twinkle 3s ease-in-out infinite;
 }
 
-/* Spin */
 @keyframes spin-slow {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
 .animate-spin-slow {
-  animation: spin-slow 20s linear infinite;
+  animation: spin-slow 60s linear infinite;
 }
 
 /* === CONFETTI === */
@@ -363,20 +419,19 @@ body {
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, var(--comic-purple), var(--comic-pink));
   border: 2px solid #000;
-  border-radius: 0;
 }
 
-/* === HALFTONE OVERLAY === */
+/* === HALFTONE === */
 .halftone::after {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(0,0,0,0.12) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px);
   background-size: 5px 5px;
   pointer-events: none;
 }
 
-/* === LOCK OVERLAY === */
+/* === LOCK === */
 .lock-container {
   background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(3px);

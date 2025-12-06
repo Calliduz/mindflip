@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { Card as CardType } from '../types';
 
 interface CardProps {
@@ -6,18 +7,40 @@ interface CardProps {
   disabled?: boolean;
 }
 
-export function Card({ card, onClick, disabled }: CardProps) {
+// Random POW words for variety
+const powWords = ['POW!', 'BAM!', 'ZAP!', 'FLIP!', 'BOOM!', 'WOW!'];
+
+export function Card({ card, onClick }: CardProps) {
+  const [showPow, setShowPow] = useState(false);
+  const [powWord, setPowWord] = useState('POW!');
+  const [powPosition, setPowPosition] = useState({ x: 50, y: 50 });
+
   const handleClick = () => {
-    if (!disabled) {
-      onClick(card);
+    // Show POW effect when flipping a card face-up
+    if (!card.isFlipped && !card.isMatched) {
+      setPowWord(powWords[Math.floor(Math.random() * powWords.length)]);
+      setPowPosition({
+        x: 30 + Math.random() * 40,
+        y: 20 + Math.random() * 30,
+      });
+      setShowPow(true);
+      setTimeout(() => setShowPow(false), 500);
     }
+    onClick(card);
   };
 
   return (
-    <div
-      className="card-container w-full aspect-square cursor-pointer"
-      onClick={handleClick}
-    >
+    <div className="card-container w-full aspect-square cursor-pointer relative" onClick={handleClick}>
+      {/* POW Effect */}
+      {showPow && (
+        <div
+          className="absolute z-20 pointer-events-none animate-pow"
+          style={{ left: `${powPosition.x}%`, top: `${powPosition.y}%`, transform: 'translate(-50%, -50%)' }}
+        >
+          <span className="pow-text">{powWord}</span>
+        </div>
+      )}
+
       <div
         className={`
           card-inner w-full h-full
@@ -26,42 +49,55 @@ export function Card({ card, onClick, disabled }: CardProps) {
         `}
       >
         {/* Card Back - Comic Style */}
-        <div className="card-face card-back bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 flex items-center justify-center overflow-hidden halftone">
-          {/* Decorative inner border */}
-          <div className="absolute inset-2.5 border-2 border-white/30 rounded-xl" />
+        <div className="card-face card-back overflow-hidden">
+          {/* Animated gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400" />
+          
+          {/* Animated pattern overlay */}
+          <div className="absolute inset-0 card-pattern" />
+          
+          {/* Halftone dots */}
+          <div className="absolute inset-0 halftone" />
+          
+          {/* Inner decorative border */}
+          <div className="absolute inset-2 border-2 border-dashed border-white/30 rounded-xl" />
+          
+          {/* MindFlip branding */}
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-black/50 px-2 py-0.5 rounded-full">
+            <span className="text-[8px] font-bold text-yellow-300 tracking-wider">🧠 MINDFLIP</span>
+          </div>
           
           {/* Question mark */}
-          <span className="comic-title text-5xl sm:text-6xl text-white select-none">?</span>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="comic-title text-5xl sm:text-6xl text-white select-none animate-pulse-subtle">?</span>
+          </div>
           
-          {/* Corner decorations */}
-          <span className="absolute top-2 left-2 text-yellow-300 text-xs animate-twinkle opacity-80">★</span>
-          <span className="absolute top-2 right-2 text-cyan-300 text-xs animate-twinkle opacity-80" style={{ animationDelay: '0.7s' }}>★</span>
-          <span className="absolute bottom-2 left-2 text-pink-200 text-xs animate-twinkle opacity-80" style={{ animationDelay: '1.4s' }}>★</span>
-          <span className="absolute bottom-2 right-2 text-green-300 text-xs animate-twinkle opacity-80" style={{ animationDelay: '2.1s' }}>★</span>
+          {/* Corner stars */}
+          <span className="absolute top-1.5 left-1.5 text-yellow-300 text-xs animate-twinkle">★</span>
+          <span className="absolute top-1.5 right-1.5 text-cyan-300 text-xs animate-twinkle" style={{ animationDelay: '0.5s' }}>★</span>
+          <span className="absolute bottom-1.5 left-1.5 text-pink-200 text-xs animate-twinkle" style={{ animationDelay: '1s' }}>★</span>
+          <span className="absolute bottom-1.5 right-1.5 text-green-300 text-xs animate-twinkle" style={{ animationDelay: '1.5s' }}>★</span>
+          
+          {/* Decorative corner triangles */}
+          <div className="absolute top-0 left-0 w-0 h-0 border-l-[20px] border-l-yellow-400/40 border-b-[20px] border-b-transparent" />
+          <div className="absolute bottom-0 right-0 w-0 h-0 border-r-[20px] border-r-cyan-400/40 border-t-[20px] border-t-transparent" />
         </div>
 
-        {/* Card Front - Shows Image */}
+        {/* Card Front */}
         <div
           className={`
             card-face card-front flex items-center justify-center
-            ${card.isMatched 
-              ? 'border-green-400 shadow-[5px_5px_0_#22c55e] bg-green-50' 
-              : 'bg-white'
-            }
+            ${card.isMatched ? 'ring-4 ring-green-400 shadow-[5px_5px_0_#22c55e]' : ''}
           `}
         >
-          <img
-            src={card.imageUrl}
-            alt="Card"
-            className="w-full h-full object-cover"
-            draggable={false}
-          />
+          <img src={card.imageUrl} alt="Card" className="w-full h-full object-cover" draggable={false} />
           
-          {/* Match indicator */}
+          {/* Match overlay */}
           {card.isMatched && (
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="absolute inset-0 bg-green-400/20" />
-              <span className="text-green-500 text-4xl font-bold drop-shadow-lg animate-bounce-in">✓</span>
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none bg-green-400/15">
+              <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center border-3 border-black shadow-[3px_3px_0_#000] animate-bounce-in">
+                <span className="text-white text-2xl font-bold">✓</span>
+              </div>
             </div>
           )}
         </div>
