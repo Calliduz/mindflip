@@ -9,44 +9,44 @@ export function GameStats({ turns, formattedTime, matchedPairs, totalPairs }: Ga
   const progress = (matchedPairs / totalPairs) * 100;
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+    <div className="flex flex-wrap items-center justify-center gap-4">
       {/* Timer */}
-      <div className="comic-panel bg-gradient-to-br from-blue-600 to-cyan-500 px-5 py-3 flex items-center gap-3">
-        <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center border-2 border-black">
-          <span className="text-xl">⏱️</span>
+      <div className="stats-card bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center gap-3 min-w-[140px]">
+        <div className="w-11 h-11 rounded-xl bg-white/25 flex items-center justify-center border-2 border-black/30">
+          <span className="text-2xl">⏱️</span>
         </div>
         <div>
-          <p className="text-xs text-white/70 uppercase tracking-wider font-bold">Time</p>
-          <p className="comic-title text-2xl text-white">{formattedTime}</p>
+          <p className="text-[10px] text-white/70 uppercase tracking-wider font-bold">Time</p>
+          <p className="text-2xl font-bold text-white tabular-nums">{formattedTime}</p>
         </div>
       </div>
 
       {/* Turns */}
-      <div className="comic-panel bg-gradient-to-br from-purple-600 to-pink-500 px-5 py-3 flex items-center gap-3">
-        <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center border-2 border-black">
-          <span className="text-xl">🔄</span>
+      <div className="stats-card bg-gradient-to-br from-purple-500 to-pink-500 flex items-center gap-3 min-w-[120px]">
+        <div className="w-11 h-11 rounded-xl bg-white/25 flex items-center justify-center border-2 border-black/30">
+          <span className="text-2xl">🔄</span>
         </div>
         <div>
-          <p className="text-xs text-white/70 uppercase tracking-wider font-bold">Turns</p>
-          <p className="comic-title text-2xl text-white">{turns}</p>
+          <p className="text-[10px] text-white/70 uppercase tracking-wider font-bold">Turns</p>
+          <p className="text-2xl font-bold text-white">{turns}</p>
         </div>
       </div>
 
       {/* Progress */}
-      <div className="comic-panel bg-gradient-to-br from-green-600 to-emerald-500 px-5 py-3 flex items-center gap-3 min-w-[180px]">
-        <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center border-2 border-black">
-          <span className="text-xl">🎯</span>
+      <div className="stats-card bg-gradient-to-br from-green-500 to-emerald-400 flex items-center gap-3 min-w-[180px]">
+        <div className="w-11 h-11 rounded-xl bg-white/25 flex items-center justify-center border-2 border-black/30">
+          <span className="text-2xl">🎯</span>
         </div>
         <div className="flex-1">
           <div className="flex justify-between items-center mb-1">
-            <p className="text-xs text-white/70 uppercase tracking-wider font-bold">Matches</p>
-            <p className="comic-title text-lg text-white">
+            <p className="text-[10px] text-white/70 uppercase tracking-wider font-bold">Matches</p>
+            <p className="text-lg font-bold text-white">
               {matchedPairs}/{totalPairs}
             </p>
           </div>
-          <div className="w-full h-3 bg-black/30 rounded-full overflow-hidden border-2 border-black">
+          <div className="w-full h-2.5 bg-black/25 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full transition-all duration-500 ease-out"
+              className="h-full bg-white rounded-full transition-all duration-500 ease-out"
               style={{ width: `${progress}%` }}
             />
           </div>

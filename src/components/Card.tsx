@@ -28,32 +28,28 @@ export function Card({ card, onClick, disabled }: CardProps) {
           ${card.isFlipped || card.isMatched ? 'flipped' : ''}
         `}
       >
-        {/* Card Back (Question Mark) - Comic Style */}
-        <div className="card-face card-back bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center halftone">
-          {/* Comic pattern overlay */}
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute inset-2 border-4 border-dashed border-white/50 rounded-lg" />
-          </div>
+        {/* Card Back */}
+        <div className="card-face card-back bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 flex items-center justify-center overflow-hidden halftone">
+          {/* Inner border */}
+          <div className="absolute inset-3 border-2 border-white/20 rounded-xl" />
           
-          {/* Question mark with comic style */}
-          <div className="relative">
-            <span className="comic-title text-6xl sm:text-7xl text-white drop-shadow-[4px_4px_0_#000]">?</span>
-          </div>
+          {/* Question mark */}
+          <span className="comic-title text-5xl sm:text-6xl text-white drop-shadow-[3px_3px_0_rgba(0,0,0,0.5)]">?</span>
           
-          {/* Corner decorations */}
-          <div className="absolute top-2 left-2 text-yellow-300 text-lg">★</div>
-          <div className="absolute top-2 right-2 text-cyan-300 text-lg">★</div>
-          <div className="absolute bottom-2 left-2 text-pink-300 text-lg">★</div>
-          <div className="absolute bottom-2 right-2 text-green-300 text-lg">★</div>
+          {/* Corner stars */}
+          <span className="absolute top-2 left-2 text-yellow-300 text-sm animate-twinkle">★</span>
+          <span className="absolute top-2 right-2 text-cyan-300 text-sm animate-twinkle" style={{ animationDelay: '0.5s' }}>★</span>
+          <span className="absolute bottom-2 left-2 text-pink-300 text-sm animate-twinkle" style={{ animationDelay: '1s' }}>★</span>
+          <span className="absolute bottom-2 right-2 text-green-300 text-sm animate-twinkle" style={{ animationDelay: '1.5s' }}>★</span>
         </div>
 
-        {/* Card Front (Image) */}
+        {/* Card Front */}
         <div
           className={`
-            card-face card-front bg-gray-800 flex items-center justify-center overflow-hidden
+            card-face card-front bg-white flex items-center justify-center overflow-hidden
             ${card.isMatched 
-              ? 'border-green-400 shadow-[6px_6px_0_#22c55e]' 
-              : 'border-black shadow-[6px_6px_0_#000]'
+              ? 'border-green-500 shadow-[5px_5px_0_#22c55e]' 
+              : ''
             }
           `}
         >
@@ -61,14 +57,10 @@ export function Card({ card, onClick, disabled }: CardProps) {
             src={card.imageUrl}
             alt="Card"
             className="w-full h-full object-cover"
-            onError={(e) => {
-              // Fallback with comic style emoji
-              (e.target as HTMLImageElement).src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23374151" width="100" height="100"/><text x="50" y="60" text-anchor="middle" fill="%23fbbf24" font-size="50">🎴</text></svg>';
-            }}
           />
           {card.isMatched && (
-            <div className="absolute inset-0 bg-green-400/20 flex items-center justify-center">
-              <span className="comic-title text-5xl text-white drop-shadow-[3px_3px_0_#000]">✓</span>
+            <div className="absolute inset-0 bg-green-400/25 flex items-center justify-center">
+              <span className="text-4xl drop-shadow-lg">✓</span>
             </div>
           )}
         </div>

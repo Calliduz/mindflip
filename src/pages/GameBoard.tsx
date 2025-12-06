@@ -15,10 +15,8 @@ export function GameBoard() {
   const { isPremium, isLoading: isPremiumLoading } = usePremiumStatus();
   const [gameStarted, setGameStarted] = useState(false);
 
-  // Get the selected theme
   const theme = themeId ? getThemeById(themeId) : undefined;
 
-  // Redirect if theme not found or premium theme accessed without premium
   useEffect(() => {
     if (!isPremiumLoading) {
       if (!theme) {
@@ -32,7 +30,6 @@ export function GameBoard() {
     }
   }, [theme, isPremium, isPremiumLoading, navigate]);
 
-  // Game logic hook
   const {
     cards,
     turns,
@@ -42,10 +39,8 @@ export function GameBoard() {
     resetGame,
   } = useGameLogic(theme?.cardImages || []);
 
-  // Timer hook
   const { formattedTime, start, reset: resetTimer } = useTimer();
 
-  // Start game and timer when cards are first clicked
   const onCardClick = (card: typeof cards[0]) => {
     if (!gameStarted) {
       setGameStarted(true);
@@ -54,44 +49,41 @@ export function GameBoard() {
     handleCardClick(card);
   };
 
-  // Handle game reset
   const handleReset = () => {
     resetGame();
     resetTimer();
     setGameStarted(false);
   };
 
-  // Calculate matched pairs
   const matchedPairs = cards.filter((card) => card.isMatched).length / 2;
   const totalPairs = cards.length / 2;
 
   if (isPremiumLoading || !theme) {
     return (
-      <div className="min-h-screen bg-[#1a1a2e] flex items-center justify-center">
+      <div className="min-h-screen bg-[#0f0f1a] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-20 h-20 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="comic-title text-2xl text-yellow-400">LOADING...</p>
+          <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-yellow-400 font-medium">Loading game...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#1a1a2e] pt-20 pb-12 px-4 speed-lines">
-      {/* Confetti on game completion */}
+    <div className="min-h-screen bg-gradient-to-br from-[#0f0f1a] via-[#1a1a2e] to-[#0f0f1a] pt-24 pb-12 px-4 speed-lines">
       <Confetti isActive={isGameComplete} />
 
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8 animate-fade-in">
-          <h1 className="comic-title text-4xl sm:text-5xl text-yellow-400 mb-2">
-            {theme.name.toUpperCase()} THEME!
+        <div className="text-center mb-6 animate-fade-in">
+          <h1 className="comic-title text-4xl sm:text-5xl text-yellow-400 mb-1">
+            {theme.name.toUpperCase()}
           </h1>
-          <p className="text-cyan-400 font-bold uppercase">Find all matching pairs! 🎯</p>
+          <p className="text-cyan-400 font-medium">Find all matching pairs! 🎯</p>
         </div>
 
-        {/* Game Stats */}
-        <div className="mb-8">
+        {/* Stats */}
+        <div className="mb-6">
           <GameStats
             turns={turns}
             formattedTime={formattedTime}
@@ -100,27 +92,24 @@ export function GameBoard() {
           />
         </div>
 
-        {/* Game Complete Overlay */}
+        {/* Victory Overlay */}
         {isGameComplete && (
-          <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-fade-in">
-            <div className="comic-panel bg-gradient-to-br from-green-500 to-emerald-600 p-8 text-center max-w-md mx-4 animate-bounce-in">
-              <div className="action-word text-5xl mb-4">BOOM!</div>
-              <div className="w-24 h-24 rounded-2xl bg-white/20 flex items-center justify-center mx-auto mb-6 border-4 border-black">
+          <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/85 backdrop-blur-sm animate-fade-in">
+            <div className="bg-gradient-to-br from-green-500 to-emerald-600 p-8 rounded-3xl border-4 border-black shadow-[10px_10px_0_#000] text-center max-w-sm mx-4 animate-bounce-in">
+              <span className="action-word text-4xl block mb-2">BOOM!</span>
+              <div className="w-20 h-20 rounded-2xl bg-white/20 flex items-center justify-center mx-auto mb-4 border-3 border-black/30">
                 <span className="text-5xl">🎉</span>
               </div>
-              <h2 className="comic-title text-4xl text-white mb-4">
-                YOU WIN!
-              </h2>
-              <p className="text-white font-bold mb-6 text-lg">
-                Finished in <span className="text-yellow-300">{turns} TURNS</span> and{' '}
-                <span className="text-yellow-300">{formattedTime}</span>!
+              <h2 className="comic-title text-4xl text-white mb-3">YOU WIN!</h2>
+              <p className="text-white font-bold mb-6">
+                <span className="text-yellow-300">{turns} turns</span> • <span className="text-yellow-300">{formattedTime}</span>
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button onClick={handleReset}>
-                  🔄 PLAY AGAIN!
+              <div className="flex flex-col gap-3">
+                <Button onClick={handleReset} className="w-full">
+                  🔄 PLAY AGAIN
                 </Button>
-                <Link to="/themes">
-                  <Button variant="secondary">
+                <Link to="/themes" className="w-full">
+                  <Button variant="secondary" className="w-full">
                     🎨 CHANGE THEME
                   </Button>
                 </Link>
@@ -130,7 +119,7 @@ export function GameBoard() {
         )}
 
         {/* Card Grid */}
-        <div className="grid grid-cols-4 gap-3 sm:gap-4 max-w-2xl mx-auto">
+        <div className="grid grid-cols-4 gap-2.5 sm:gap-3 max-w-xl mx-auto mb-8">
           {cards.map((card) => (
             <Card
               key={card.id}
@@ -142,13 +131,13 @@ export function GameBoard() {
         </div>
 
         {/* Controls */}
-        <div className="mt-8 flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-3">
           <Button variant="danger" onClick={handleReset}>
-            🔄 RESET GAME
+            🔄 RESET
           </Button>
           <Link to="/themes">
             <Button variant="outline">
-              ← BACK TO THEMES
+              ← THEMES
             </Button>
           </Link>
         </div>
