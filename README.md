@@ -1,73 +1,54 @@
-# React + TypeScript + Vite
+# MindFlip
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MindFlip is an engaging memory-matching game built with the MERN stack (MongoDB, Express, React, Node.js). It features various themes, varying difficulty levels, and a premium subscription model to unlock exclusive content.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Memory Matching Gameplay**: Classic card matching mechanics.
+- **Multiple Difficulty Levels**: Easy, Medium, and Hard modes.
+- **Themed Card Decks**:
+    - **Classic**: Standard card designs.
+    - **Animals**: Cute animal illustrations.
+    - **Food**: Delicious food items.
+    - **Anime** (Premium): Anime-style characters.
+    - **Tech** (Premium): Technology-themed icons.
+- **Premium Subscription**: Unlock exclusive themes via payment integration.
+- **User Authentication**: Secure signup and login for saving progress and premium status.
+- **Responsive Design**: Playable on desktop and mobile devices.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend**: React, TypeScript, Tailwind CSS, Vite
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **Payment**: PayMongo (migrated from Stripe)
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js (v14 or higher)
+- MongoDB instance (local or Atlas)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd mindflip
+    ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2.  **Install Dependencies:**
+    ```bash
+    npm install
+    ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+3.  **Environment Setup:**
+    Create a `.env` file in the root directory and configure necessary environment variables (API URLs, Database URI, etc.).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+4.  **Run Development Server:**
+    ```bash
+    npm run dev
+    ```
+
+The application should now be running on `http://localhost:5173` (or your configured port).
